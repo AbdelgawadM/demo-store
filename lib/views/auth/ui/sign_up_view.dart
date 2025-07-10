@@ -3,6 +3,7 @@ import 'package:our_store/views/auth/ui/widgets/custem_text_btn.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_row.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
+import 'package:our_store/views/auth/ui/widgets/title_txt_field.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -21,12 +22,7 @@ class SignUpViewMyWidgetState extends State<SignUpView> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 24),
-                Text(
-                  'Welcome To Our Store',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 24),
+                TitleTxtField(text: 'Welcome To Our Store'),
                 CustomCard(
                   child: Column(
                     spacing: 20,

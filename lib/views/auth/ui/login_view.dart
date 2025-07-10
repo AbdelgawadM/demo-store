@@ -4,6 +4,7 @@ import 'package:our_store/views/auth/ui/widgets/custem_text_btn.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_row.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
+import 'package:our_store/views/auth/ui/widgets/title_txt_field.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -23,12 +24,7 @@ class _LoginViewState extends State<LoginView> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 24),
-                Text(
-                  'Welcome to our Market',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 24),
+                TitleTxtField(text: 'Welcome To Our Store'),
                 CustomCard(
                   child: Column(
                     spacing: 20,
@@ -61,7 +57,7 @@ class _LoginViewState extends State<LoginView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Already have Account ?',
+                            'Dont have Account ?',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -82,4 +78,3 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
-

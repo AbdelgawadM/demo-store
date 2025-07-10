@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/views/auth/ui/login_view.dart';
+import 'package:our_store/views/auth/ui/sign_up_view.dart';
 
 void main() {
   runApp(const DemoStore());
@@ -15,7 +16,7 @@ class DemoStore extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Demo Store',
       theme: ThemeData(scaffoldBackgroundColor: AppColors.kScaffoldColor),
-      home: LoginView(),
+      home: SignUpView(),
     );
   }
 }
