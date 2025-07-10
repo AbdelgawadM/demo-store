@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_store/core/app_colors.dart';
+import 'package:our_store/views/auth/ui/widgets/custem_text_btn.dart';
+import 'package:our_store/views/auth/ui/widgets/custom_row.dart';
+import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -84,106 +87,6 @@ class _LoginViewState extends State<LoginView> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class CustomRow extends StatelessWidget {
-  const CustomRow({super.key, this.onPressed, required this.data});
-  final void Function()? onPressed;
-  final String data;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(data, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        CustomArrowBtn(onPressed: onPressed),
-      ],
-    );
-  }
-}
-
-class CustomArrowBtn extends StatelessWidget {
-  const CustomArrowBtn({super.key, this.onPressed});
-  final void Function()? onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(16),
-        ),
-        backgroundColor: AppColors.kPrimaryColor,
-        foregroundColor: AppColors.kWhiteColor,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-        child: Icon(Icons.arrow_forward),
-      ),
-    );
-  }
-}
-
-class CustomTextBtn extends StatelessWidget {
-  const CustomTextBtn({super.key, required this.text, this.onTap});
-  final String text;
-  final void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Text(
-        text,
-        style: TextStyle(
-          color: AppColors.kPrimaryColor,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    required this.label,
-    this.sufIcon,
-    required this.keyboardType,
-    this.isHidden = false,
-  });
-  final String label;
-  final Widget? sufIcon;
-  final TextInputType? keyboardType;
-  final bool isHidden;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'field is required';
-        }
-        return null;
-      },
-      keyboardType: keyboardType,
-      obscureText: isHidden,
-      decoration: InputDecoration(
-        labelStyle: TextStyle(color: AppColors.kBlackColor),
-        labelText: label,
-        suffixIcon: sufIcon,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.kBordersideColor, width: 2),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.kBordersideColor, width: 2),
         ),
       ),
     );
