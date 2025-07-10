@@ -5,6 +5,7 @@ import 'package:our_store/views/auth/ui/login_view.dart';
 void main() {
   runApp(const DemoStore());
 }
+
 class DemoStore extends StatelessWidget {
   const DemoStore({super.key});
 
@@ -13,11 +14,8 @@ class DemoStore extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Demo Store',
-      theme: ThemeData(
-                // scaffoldBackgroundColor: AppColors.kScaffoldColor
-      ),
+      theme: ThemeData(scaffoldBackgroundColor: AppColors.kScaffoldColor),
       home: LoginView(),
-
     );
   }
 }
