@@ -11,7 +11,7 @@ class CustomRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(data, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(data, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
         CustomArrowBtn(onPressed: onPressed),
       ],
     );
