@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:our_store/core/functions/navigate_to.dart';
+import 'package:our_store/views/auth/ui/sign_up_view.dart';
 import 'package:our_store/views/auth/ui/widgets/custem_text_btn.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_row.dart';
@@ -63,7 +65,12 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                           SizedBox(width: 5),
-                          CustomTextBtn(text: 'Sign up'),
+                          CustomTextBtn(
+                            text: 'Sign up',
+                            onTap: () {
+                              navigateTo(context, SignUpView());
+                            },
+                          ),
                         ],
                       ),
                     ],
