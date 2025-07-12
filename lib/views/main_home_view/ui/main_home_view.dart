@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:our_store/core/app_colors.dart';
+import 'package:our_store/views/favorite/ui/favorite_view.dart';
+import 'package:our_store/views/home/ui/home_view.dart';
+import 'package:our_store/views/profile/ui/profile_view.dart';
+import 'package:our_store/views/store/ui/store_view.dart';
 
-class MainHomeView extends StatefulWidget {
-  const MainHomeView({super.key});
+// ignore: must_be_immutable
+class MainHomeView extends StatelessWidget {
+  MainHomeView({super.key});
 
-  @override
-  State<MainHomeView> createState() => _MainHomeViewState();
-}
+  RxInt _selectedIndex = 0.obs;
 
-class _MainHomeViewState extends State<MainHomeView> {
-  int _selectedIndex = 0;
+  final List<Widget> views = [
+    HomeView(),
+    StoreView(),
+    FavoriteView(),
+    ProfileView(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Center(child: Text('data'))),
+      body: SafeArea(
+        child: Obx(() => Center(child: views[_selectedIndex.value])),
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -39,15 +49,13 @@ class _MainHomeViewState extends State<MainHomeView> {
               color: Colors.black26,
               tabs: [
                 GButton(icon: Icons.home, text: 'Home'),
-                GButton(icon: Icons.store, text: 'Likes'),
-                GButton(icon: Icons.favorite, text: 'Search'),
+                GButton(icon: Icons.store, text: 'Store'),
+                GButton(icon: Icons.favorite, text: 'favourite'),
                 GButton(icon: Icons.person, text: 'Profile'),
               ],
-              selectedIndex: _selectedIndex,
+              selectedIndex: _selectedIndex.value,
               onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
+                _selectedIndex.value = index;
               },
             ),
           ),
