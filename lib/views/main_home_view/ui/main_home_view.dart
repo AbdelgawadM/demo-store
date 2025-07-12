@@ -25,7 +25,7 @@ class MainHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Obx(() => Center(child: views[_selectedIndex.value])),
+        child: Obx(() => views[_selectedIndex.value]),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

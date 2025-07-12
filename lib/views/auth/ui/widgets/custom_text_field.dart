@@ -1,19 +1,21 @@
-
 import 'package:flutter/material.dart';
 import 'package:our_store/core/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-    required this.label,
+    this.label,
     this.sufIcon,
     required this.keyboardType,
     this.isHidden = false,
+    this.hint, this.fillColor=Colors.transparent,
   });
-  final String label;
+  final String? label;
+  final Widget? hint;
   final Widget? sufIcon;
   final TextInputType? keyboardType;
   final bool isHidden;
+  final Color? fillColor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +26,16 @@ class CustomTextField extends StatelessWidget {
         }
         return null;
       },
+      
       keyboardType: keyboardType,
       obscureText: isHidden,
       decoration: InputDecoration(
+        fillColor:fillColor ,
+        filled: true,
         labelStyle: TextStyle(color: AppColors.kBlackColor),
         labelText: label,
+        hint: hint,
+        hintStyle: TextStyle(color: AppColors.kBlackColor),
         suffixIcon: sufIcon,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
