@@ -17,7 +17,7 @@ class DemoStore extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Demo Store',
       theme: ThemeData(scaffoldBackgroundColor: AppColors.kScaffoldColor),
-      home: ForgetView(),
+      home: SignUpView(),
     );
   }
 }

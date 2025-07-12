@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:our_store/core/functions/navigate_to.dart';
+import 'package:our_store/views/auth/ui/forget_view.dart';
 import 'package:our_store/views/auth/ui/sign_up_view.dart';
 import 'package:our_store/views/auth/ui/widgets/custem_text_btn.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_row.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
 import 'package:our_store/views/auth/ui/widgets/title_txt_field.dart';
+import 'package:our_store/views/main_home_view/ui/main_home_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -49,10 +51,17 @@ class _LoginViewState extends State<LoginView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          CustomTextBtn(text: 'Forget Password?', onTap: () {}),
+                          CustomTextBtn(
+                            text: 'Forget Password?',
+                            onTap: () {
+                              navigateTo(context, ForgetView());
+                            },
+                          ),
                         ],
                       ),
-                      CustomRow(data: 'Login', onPressed: () {}),
+                      CustomRow(data: 'Login', onPressed: () {
+                        navigateTo(context, MainHomeView());
+                      }),
                       CustomRow(data: 'Login With Google', onPressed: () {}),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
                           CustomTextBtn(
                             text: 'Sign up',
                             onTap: () {
-                              navigateTo(context, SignUpView());
+                              Navigator.pop(context);
                             },
                           ),
                         ],
