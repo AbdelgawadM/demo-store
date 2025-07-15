@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_store/core/app_colors.dart';
+import 'package:our_store/core/functions/navigate_to.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
+import 'package:our_store/views/profile/ui/edit_name_view.dart';
 import 'package:our_store/views/profile/ui/widgets/custom_title.dart';
 
 class ProfileView extends StatelessWidget {
@@ -32,7 +34,9 @@ class ProfileView extends StatelessWidget {
               ),
               SizedBox(height: 15),
 
-              CustomTile(title: 'Edit Name', icon: Icons.person, onTap: () {}),
+              CustomTile(title: 'Edit Name', icon: Icons.person, onTap: () {
+                navigateTo(context, EditNameView());
+              }),
               SizedBox(height: 20),
               CustomTile(
                 title: 'My Orders',
