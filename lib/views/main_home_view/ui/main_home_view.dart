@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/views/favorite/ui/favorite_view.dart';
 import 'package:our_store/views/home/ui/home_view.dart';
@@ -12,7 +11,7 @@ import 'package:our_store/views/store/ui/store_view.dart';
 class MainHomeView extends StatelessWidget {
   MainHomeView({super.key});
 
-  RxInt _selectedIndex = 0.obs;
+  final RxInt _selectedIndex = 3.obs;
 
   final List<Widget> views = [
     HomeView(),
