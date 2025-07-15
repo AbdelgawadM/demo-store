@@ -17,7 +17,15 @@ class DemoStore extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Demo Store',
-      theme: ThemeData(scaffoldBackgroundColor: AppColors.kScaffoldColor),
+      theme: ThemeData(scaffoldBackgroundColor: AppColors.kScaffoldColor,
+      appBarTheme: AppBarTheme(
+        // color: AppColors.kPrimaryColor,
+        centerTitle: true,
+        backgroundColor: AppColors.kPrimaryColor,
+        foregroundColor: AppColors.kWhiteColor,
+        
+      )
+      ),
       home: MainHomeView(),
     );
   }
