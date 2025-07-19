@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/core/widgets/custom_button.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';

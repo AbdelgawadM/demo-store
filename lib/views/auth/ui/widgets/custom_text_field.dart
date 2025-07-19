@@ -8,7 +8,7 @@ class CustomTextField extends StatelessWidget {
     this.sufIcon,
     required this.keyboardType,
     this.isHidden = false,
-    this.hint, this.fillColor=Colors.transparent,
+    this.hint, this.fillColor=Colors.transparent, this.controller,
   });
   final String? label;
   final Widget? hint;
@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool isHidden;
   final Color? fillColor;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class CustomTextField extends StatelessWidget {
         }
         return null;
       },
-      
+      controller:controller ,
       keyboardType: keyboardType,
       obscureText: isHidden,
       decoration: InputDecoration(

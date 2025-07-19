@@ -1,7 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:our_store/core/app_colors.dart';
+import 'package:our_store/core/widgets/custom_indicator.dart';
 
 class CustomCashedImage extends StatelessWidget {
   const CustomCashedImage({
@@ -26,11 +26,7 @@ class CustomCashedImage extends StatelessWidget {
       placeholder: (context, url) => SizedBox(
         height: 300,
         width: double.infinity,
-        child: Center(
-          child: CircularProgressIndicator(
-            color: AppColors.kPrimaryColor,
-          ),
-        ),
+        child: CustomIndicator(),
       ),
       errorWidget: (context, url, error) => Container(
         height: 300,
