@@ -28,7 +28,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocConsumer(
+        child: BlocConsumer<AuthCubit, AuthCubitState>(
           listener: (context, state) {
             if (state is Success) {
               customSnackBar(context, 'Success Login');
@@ -58,17 +58,18 @@ class LoginView extends StatelessWidget {
                                     label: 'Email',
                                     keyboardType: TextInputType.emailAddress,
                                   ),
-                                  CustomTextField(
-                                    controller: passController,
-                                    isHidden: isHidden.value,
-                                    label: 'Password',
-                                    keyboardType: TextInputType.visiblePassword,
-                                    sufIcon: IconButton(
-                                      onPressed: () {
-                                        isHidden.value = !isHidden.value;
-                                      },
-                                      icon: Obx(
-                                        () => Icon(Icons.visibility_off),
+                                  Obx(
+                                    () => CustomTextField(
+                                      controller: passController,
+                                      isHidden: isHidden.value,
+                                      label: 'Password',
+                                      keyboardType:
+                                          TextInputType.visiblePassword,
+                                      sufIcon: IconButton(
+                                        onPressed: () {
+                                          isHidden.value = !isHidden.value;
+                                        },
+                                        icon: Icon(Icons.visibility_off),
                                       ),
                                     ),
                                   ),
