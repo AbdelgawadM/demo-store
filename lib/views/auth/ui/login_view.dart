@@ -32,7 +32,7 @@ class LoginView extends StatelessWidget {
           listener: (context, state) {
             if (state is Success) {
               customSnackBar(context, 'Success Login');
-              navigateTo(context, MainHomeView());
+              navigateToWithoutBack(context, MainHomeView());
             } else if (state is Failure) {
               customSnackBar(context, state.message);
             }
