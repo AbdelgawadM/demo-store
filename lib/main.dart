@@ -20,6 +20,8 @@ class DemoStore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SupabaseClient client = Supabase.instance.client;
+
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: MaterialApp(
@@ -34,7 +36,7 @@ class DemoStore extends StatelessWidget {
             foregroundColor: AppColors.kWhiteColor,
           ),
         ),
-        home: MainHomeView(),
+        home: client.auth.currentUser == null ? SignUpView() : MainHomeView(),
       ),
     );
   }
