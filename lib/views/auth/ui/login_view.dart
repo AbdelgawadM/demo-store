@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/core/functions/custom_snackbar.dart';
 import 'package:our_store/core/functions/navigate_to.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
+import 'package:our_store/core/widgets/custom_progress_hud.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit_state.dart';
 import 'package:our_store/views/auth/ui/forget_view.dart';
@@ -40,92 +43,92 @@ class LoginView extends StatelessWidget {
 
           builder: (context, state) {
             AuthCubit cubit = context.read<AuthCubit>();
-            return state is Loading
-                ? CustomIndicator()
-                : Center(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          TitleTxtField(text: 'Welcome To Our Store'),
-                          CustomCard(
-                            child: Form(
-                              key: formKey,
-                              child: Column(
-                                spacing: 20,
-                                children: [
-                                  CustomTextField(
-                                    controller: emailController,
-                                    label: 'Email',
-                                    keyboardType: TextInputType.emailAddress,
-                                  ),
-                                  Obx(
-                                    () => CustomTextField(
-                                      controller: passController,
-                                      isHidden: isHidden.value,
-                                      label: 'Password',
-                                      keyboardType:
-                                          TextInputType.visiblePassword,
-                                      sufIcon: IconButton(
-                                        onPressed: () {
-                                          isHidden.value = !isHidden.value;
-                                        },
-                                        icon: Icon(Icons.visibility_off),
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      CustomTextBtn(
-                                        text: 'Forget Password?',
-                                        onTap: () {
-                                          navigateTo(context, ForgetView());
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  CustomRow(
-                                    data: 'Login',
+            return CustomProgressHud(
+              loading: state is Loading,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      TitleTxtField(text: 'Welcome To Our Store'),
+                      CustomCard(
+                        child: Form(
+                          key: formKey,
+                          child: Column(
+                            spacing: 20,
+                            children: [
+                              CustomTextField(
+                                controller: emailController,
+                                label: 'Email',
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                              Obx(
+                                () => CustomTextField(
+                                  controller: passController,
+                                  isHidden: isHidden.value,
+                                  label: 'Password',
+                                  keyboardType: TextInputType.visiblePassword,
+                                  sufIcon: IconButton(
                                     onPressed: () {
-                                      if (formKey.currentState!.validate()) {
-                                        cubit.login(
-                                          email: emailController.text,
-                                          password: passController.text,
-                                        );
-                                      }
+                                      isHidden.value = !isHidden.value;
                                     },
+                                    icon: Icon(Icons.visibility_off),
                                   ),
-                                  CustomRow(
-                                    data: 'Login With Google',
-                                    onPressed: () {},
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Dont have Account ?',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(width: 5),
-                                      CustomTextBtn(
-                                        text: 'Sign up',
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  CustomTextBtn(
+                                    text: 'Forget Password?',
+                                    onTap: () {
+                                      navigateTo(context, ForgetView());
+                                    },
                                   ),
                                 ],
                               ),
-                            ),
+                              CustomRow(
+                                data: 'Login',
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    cubit.login(
+                                      email: emailController.text,
+                                      password: passController.text,
+                                    );
+                                  }
+                                },
+                              ),
+                              CustomRow(
+                                data: 'Login With Google',
+                                onPressed: () {},
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Dont have Account ?',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  CustomTextBtn(
+                                    text: 'Sign up',
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  );
+                    ],
+                  ),
+                ),
+              ),
+            );
           },
         ),
       ),
