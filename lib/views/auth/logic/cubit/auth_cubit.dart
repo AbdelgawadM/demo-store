@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit_state.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthCubit extends Cubit<AuthCubitState> {
   AuthCubit() : super(AuthCubitInitial());
@@ -28,5 +31,15 @@ class AuthCubit extends Cubit<AuthCubitState> {
     } catch (e) {
       emit(Failure(message: e.toString()));
     }
+  }
+
+  Future<void> logOut() async {
+    try {
+      emit(Loading());
+      await client.auth.signOut();
+    } catch (e) {
+      emit(Failure(message: e.toString()));
+    }
+    emit(Success());
   }
 }
