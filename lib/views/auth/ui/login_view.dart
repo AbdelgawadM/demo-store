@@ -68,7 +68,11 @@ class LoginView extends StatelessWidget {
                                     onPressed: () {
                                       isHidden.value = !isHidden.value;
                                     },
-                                    icon: Icon(Icons.visibility_off),
+                                    icon: Icon(
+                                      isHidden.value
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
                                   ),
                                 ),
                               ),
