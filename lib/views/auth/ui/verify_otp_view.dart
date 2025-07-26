@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/functions/custom_snackbar.dart';
@@ -8,14 +6,15 @@ import 'package:our_store/core/widgets/custom_button.dart';
 import 'package:our_store/core/widgets/custom_progress_hud.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit_state.dart';
-import 'package:our_store/views/auth/ui/verify_otp_view.dart';
+import 'package:our_store/views/auth/ui/reset_password_view.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
 import 'package:our_store/views/auth/ui/widgets/title_txt_field.dart';
 
 // ignore: must_be_immutable
-class ForgetView extends StatelessWidget {
-  ForgetView({super.key});
+class VerifyOtpView extends StatelessWidget {
+  VerifyOtpView({super.key, required this.email});
+  final String email;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
   @override
@@ -24,23 +23,21 @@ class ForgetView extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthCubitState>(
           listener: (context, state) {
-            if (state is SuccessEmailSent) {
-              customSnackBar(context, 'Email Sent');
-              // navigateTo(context, VerifyOtpView(email: controller.text));
-            } else if (state is FailureEmailSent) {
-              log(state.message);
+            if (state is SuccessVerfying) {
+              customSnackBar(context, 'Correct Otp');
+              navigateTo(context, const ResetPasswordView());
+            } else if (state is FailureVerfying) {
+              customSnackBar(context, state.message);
             }
           },
           builder: (context, state) {
             AuthCubit cubit = context.read<AuthCubit>();
             return CustomProgressHud(
-              loading: state is LoadingEmailSent,
+              loading: state is LoadingVerfying,
               child: Column(
                 children: [
                   const SizedBox(height: 48),
-                  const TitleTxtField(
-                    text: 'Enter your Email to reset Password',
-                  ),
+                  const TitleTxtField(text: 'verify Otp'),
                   CustomCard(
                     child: Form(
                       key: formKey,
@@ -49,14 +46,17 @@ class ForgetView extends StatelessWidget {
                         children: [
                           CustomTextField(
                             controller: controller,
-                            label: 'Email',
-                            keyboardType: TextInputType.emailAddress,
+                            label: 'OTP',
+                            keyboardType: TextInputType.number,
                           ),
                           CustomButton(
                             label: 'Submit',
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
-                                cubit.sendEmail(email: controller.text);
+                                cubit.verifyOTP(
+                                  email: email,
+                                  otpCode: controller.text,
+                                );
                               }
                             },
                           ),
