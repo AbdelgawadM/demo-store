@@ -16,7 +16,7 @@ class CustomProgressHud extends StatelessWidget {
     return Center(
       child: ModalProgressHUD(
         inAsyncCall: loading,
-        progressIndicator: CircularProgressIndicator(
+        progressIndicator: const CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(AppColors.kPrimaryColor),
         ),
         child: child,
