@@ -19,17 +19,17 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthCubitState>(
       listener: (context, state) {
-        if (state is Success) {
-          customSnackBar(context, 'Success Login');
+        if (state is SuccessLogout) {
+          customSnackBar(context, 'Success logout');
           navigateToWithoutBack(context, LoginView());
-        } else if (state is Failure) {
+        } else if (state is FailureLogout) {
           customSnackBar(context, state.message);
         }
       },
       builder: (context, state) {
         AuthCubit cubit = context.read<AuthCubit>();
         return CustomProgressHud(
-          loading: state is Loading,
+          loading: state is LoadingLogout,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -78,7 +78,6 @@ class ProfileView extends StatelessWidget {
                       icon: Icons.logout,
                       onTap: () {
                         cubit.logOut();
-                        customSnackBar(context, 'success log Out');
                       },
                     ),
                     const SizedBox(height: 50),

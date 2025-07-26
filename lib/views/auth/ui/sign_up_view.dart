@@ -30,29 +30,29 @@ class SignUpView extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthCubitState>(
           listener: (context, state) {
-            if (state is Success) {
+            if (state is SuccessSignUp) {
               customSnackBar(context, 'success registeration');
               navigateToWithoutBack(context, MainHomeView());
-            } else if (state is Failure) {
+            } else if (state is FailureSignUp) {
               customSnackBar(context, state.message);
             }
           },
           builder: (context, state) {
             AuthCubit cubit = context.read<AuthCubit>();
             return CustomProgressHud(
-              loading: state is Loading,
+              loading: state is LoadingSignUp,
               child: Center(
                 child: SingleChildScrollView(
                   child: Form(
                     key: formKey,
                     child: Column(
                       children: [
-                        TitleTxtField(text: 'Welcome To Our Store'),
+                        const TitleTxtField(text: 'Welcome To Our Store'),
                         CustomCard(
                           child: Column(
                             spacing: 20,
                             children: [
-                              CustomTextField(
+                              const CustomTextField(
                                 label: 'Name',
                                 keyboardType: TextInputType.name,
                               ),
@@ -97,14 +97,14 @@ class SignUpView extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Already Have Account ?',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
                                     ),
                                   ),
-                                  SizedBox(width: 5),
+                                  const SizedBox(width: 5),
                                   CustomTextBtn(
                                     text: 'Login',
                                     onTap: () {
