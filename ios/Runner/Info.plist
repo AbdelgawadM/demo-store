@@ -59,5 +59,16 @@
 				</array>
 			</dict>
 		</array>
+
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>ourstore</string>
+				</array>
+			</dict>
+		</array>
+
 	</dict>
 </plist>
