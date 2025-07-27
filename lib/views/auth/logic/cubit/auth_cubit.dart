@@ -10,6 +10,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
   AuthCubit() : super(AuthCubitInitial());
   SupabaseClient client = Supabase.instance.client;
   UserModel? userModel;
+  bool hasFetchedUserData = false;
 
   Future<void> login({required String email, required String password}) async {
     emit(LoadingLogin());
@@ -103,6 +104,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   Future<void> getUserData() async {
+    if (hasFetchedUserData) return;
+
     emit(LoadingUserDataGot());
     try {
       final response = await client
@@ -110,6 +113,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
           .select()
           .eq('id', client.auth.currentUser!.id);
       userModel = UserModel.fromJson(response);
+      hasFetchedUserData = true;
       emit(SuccessUserDataGot());
     } catch (e) {
       emit(FailureUserDataGot(message: e.toString()));
@@ -120,6 +124,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
     emit(LoadingLogout());
     try {
       await client.auth.signOut();
+      userModel = null;
+      hasFetchedUserData = false;
       emit(SuccessLogout());
     } catch (e) {
       emit(FailureLogout(message: e.toString()));
