@@ -58,3 +58,24 @@ final class FailureLogout extends AuthCubitState {
   FailureLogout({required this.message});
 }
 final class LoadingLogout extends AuthCubitState {}
+
+
+
+final class SuccessUserDataAdded extends AuthCubitState {}
+final class FailureUserDataAdded extends AuthCubitState {
+  final String message;
+
+  FailureUserDataAdded({required this.message});
+}
+final class LoadingUserDataAdded extends AuthCubitState {}
+
+
+
+
+final class SuccessUserDataGot extends AuthCubitState {}
+final class FailureUserDataGot extends AuthCubitState {
+  final String message;
+
+  FailureUserDataGot({required this.message});
+}
+final class LoadingUserDataGot extends AuthCubitState {}

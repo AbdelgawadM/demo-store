@@ -2,16 +2,18 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit_state.dart';
+import 'package:our_store/views/auth/logic/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthCubit extends Cubit<AuthCubitState> {
   AuthCubit() : super(AuthCubitInitial());
   SupabaseClient client = Supabase.instance.client;
+  UserModel? userModel;
 
   Future<void> login({required String email, required String password}) async {
+    emit(LoadingLogin());
     try {
-      emit(LoadingLogin());
       await client.auth.signInWithPassword(email: email, password: password);
       emit(SuccessLogin());
     } on AuthException catch (e) {
@@ -21,10 +23,15 @@ class AuthCubit extends Cubit<AuthCubitState> {
     }
   }
 
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> signUp({
+    required String email,
+    required String name,
+    required String password,
+  }) async {
+    emit(LoadingSignUp());
     try {
-      emit(LoadingSignUp());
       await client.auth.signUp(email: email, password: password);
+      await addUserData(name: name, email: email);
       emit(SuccessSignUp());
     } on AuthException catch (e) {
       emit(FailureSignUp(message: e.toString()));
@@ -34,8 +41,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   Future<void> sendEmail({required String email}) async {
+    emit(LoadingEmailSent());
     try {
-      emit(LoadingEmailSent());
       await client.auth.resetPasswordForEmail(
         email,
         redirectTo: 'ourstore://reset-password',
@@ -50,8 +57,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
     required String email,
     required String otpCode,
   }) async {
+    emit(LoadingUpdating());
     try {
-      emit(LoadingUpdating());
       final session = await client.auth.verifyOTP(
         type: OtpType.recovery,
         email: email,
@@ -69,22 +76,54 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   Future<void> updatePassword(String password) async {
+    emit(LoadingUpdating());
     try {
-      emit(LoadingUpdating());
       await client.auth.updateUser(UserAttributes(password: password));
+      emit(SuccessUpdating());
     } catch (e) {
       emit(FailureUpdating(message: e.toString()));
     }
-    emit(SuccessUpdating());
+  }
+
+  Future<void> addUserData({
+    required String name,
+    required String email,
+  }) async {
+    emit(LoadingUserDataAdded());
+    try {
+      await client.from('users').insert({
+        'id': client.auth.currentUser!.id,
+        'name': name,
+        'email': email,
+      });
+      emit(SuccessUserDataAdded());
+    } catch (e) {
+      emit(FailureUserDataAdded(message: e.toString()));
+    }
+  }
+
+  Future<void> getUserData() async {
+    emit(LoadingUserDataGot());
+    try {
+      final response = await client
+          .from('users')
+          .select()
+          .eq('id', client.auth.currentUser!.id);
+      Map<String, dynamic> data = response.first;
+      userModel = UserModel.fromJson(data);
+      emit(SuccessUserDataGot());
+    } catch (e) {
+      emit(FailureUserDataGot(message: e.toString()));
+    }
   }
 
   Future<void> logOut() async {
+    emit(LoadingLogout());
     try {
-      emit(LoadingLogout());
       await client.auth.signOut();
+      emit(SuccessLogout());
     } catch (e) {
       emit(FailureLogout(message: e.toString()));
     }
-    emit(SuccessLogout());
   }
 }

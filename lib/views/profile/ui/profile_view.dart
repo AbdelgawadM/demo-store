@@ -12,8 +12,21 @@ import 'package:our_store/views/profile/ui/my_orders_view.dart';
 import 'package:our_store/views/profile/ui/edit_name_view.dart';
 import 'package:our_store/views/profile/ui/widgets/custom_title.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
+
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  late AuthCubit cubit;
+
+  @override
+  void initState() {
+    super.initState();
+    cubit = context.read<AuthCubit>()..getUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +40,8 @@ class ProfileView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        AuthCubit cubit = context.read<AuthCubit>();
         return CustomProgressHud(
-          loading: state is LoadingLogout,
+          loading: state is LoadingLogout || state is LoadingUserDataGot,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -43,14 +55,14 @@ class ProfileView extends StatelessWidget {
                       child: Icon(Icons.person, size: 50),
                     ),
                     const SizedBox(height: 15),
-                    const Text(
-                      'My Name',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    Text(
+                      cubit.userModel?.name ?? 'my name',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      'email@gmail.com',
-                      style: TextStyle(
+                    Text(
+                      cubit.userModel?.email ?? 'email@gmail.com',
+                      style: const TextStyle(
                         color: AppColors.kGreyColor,
                         fontWeight: FontWeight.w600,
                       ),
