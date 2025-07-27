@@ -2,13 +2,11 @@ class UserModel {
   final String name;
   final String email;
 
-  UserModel({
-    required this.name,
-    required this.email,
-  });
+  UserModel({required this.name, required this.email});
 
   // Factory constructor to create an instance from Supabase JSON
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+  factory UserModel.fromJson(List<Map<String, dynamic>> response) {
+    Map<String, dynamic> json = response.first;
     return UserModel(
       name: json['name'] as String,
       email: json['email'] as String,
@@ -23,5 +21,3 @@ class UserModel {
   //   };
   // }
 }
-
-
