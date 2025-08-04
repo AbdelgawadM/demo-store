@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
-import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key});
@@ -11,28 +10,30 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Name'),
+        title: const Text('Product Name'),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_forward_ios),
+          icon: const Icon(Icons.arrow_forward_ios),
         ),
       ),
       body: ListView(
         children: [
-          CustomCashedImage(),
+          // const CustomCashedImage(
+          //   imageUrl: ,
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 20,
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [Text('product name'), Text('200 LE')],
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -44,21 +45,21 @@ class ProductDetails extends StatelessWidget {
                     Icon(Icons.favorite),
                   ],
                 ),
-                Text('books desc'),
+                const Text('books desc'),
                 RatingBar.builder(
                   initialRating: 3,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   itemBuilder: (context, _) =>
-                      Icon(Icons.star, color: Colors.amber),
+                      const Icon(Icons.star, color: Colors.amber),
                   onRatingUpdate: (rating) {
                     print(rating);
                   },
                 ),
-                CustomTextField(
+                const CustomTextField(
                   keyboardType: TextInputType.multiline,
                   hint: Text('comment here...'),
                 ),

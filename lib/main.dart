@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/core/functions/custom_snackbar.dart';
+import 'package:our_store/core/services/supabase_service.dart';
 import 'package:our_store/secret_constants.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/ui/forget_view.dart';
@@ -19,10 +20,10 @@ Future<void> main() async {
 
   await Supabase.initialize(url: url, anonKey: apiKey);
 
+  // await SupabaseService().fetchProducts();
   runApp(const DemoStore());
 }
 
-// ignore: ust_be_immutable
 class DemoStore extends StatefulWidget {
   const DemoStore({super.key});
 

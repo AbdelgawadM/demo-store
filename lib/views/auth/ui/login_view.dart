@@ -8,6 +8,7 @@ import 'package:our_store/core/widgets/custom_progress_hud.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit_state.dart';
 import 'package:our_store/views/auth/ui/forget_view.dart';
+import 'package:our_store/views/auth/ui/sign_up_view.dart';
 import 'package:our_store/views/auth/ui/widgets/custem_text_btn.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_row.dart';
@@ -116,7 +117,7 @@ class LoginView extends StatelessWidget {
                                   CustomTextBtn(
                                     text: 'Sign up',
                                     onTap: () {
-                                      Navigator.pop(context);
+                                      navigateToWithoutBack(context, SignUpView());
                                     },
                                   ),
                                 ],

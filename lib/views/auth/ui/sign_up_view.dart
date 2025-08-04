@@ -21,7 +21,7 @@ class SignUpView extends StatelessWidget {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-
+  TextEditingController nameController = TextEditingController();
   SignUpView({super.key});
 
   @override
@@ -52,7 +52,8 @@ class SignUpView extends StatelessWidget {
                           child: Column(
                             spacing: 20,
                             children: [
-                              const CustomTextField(
+                              CustomTextField(
+                                controller: nameController,
                                 label: 'Name',
                                 keyboardType: TextInputType.name,
                               ),
@@ -84,6 +85,7 @@ class SignUpView extends StatelessWidget {
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
                                     cubit.signUp(
+                                      name: nameController.text,
                                       email: emailController.text,
                                       password: passController.text,
                                     );
@@ -108,7 +110,7 @@ class SignUpView extends StatelessWidget {
                                   CustomTextBtn(
                                     text: 'Login',
                                     onTap: () {
-                                      navigateTo(context, LoginView());
+                                      navigateToWithoutBack(context, LoginView());
                                     },
                                   ),
                                 ],
