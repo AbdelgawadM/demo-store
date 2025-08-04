@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/core/functions/navigate_to.dart';
@@ -9,36 +8,47 @@ import 'package:our_store/views/product_details/ui/Product_details.dart';
 
 class Product extends StatelessWidget {
   const Product({
-    super.key, this.onTap,
+    super.key,
+    this.onTap,
+    required this.name,
+    required this.desc,
+    required this.price,
+    required this.oldPrice,
+    required this.discount,
+    required this.imageUrl,
   });
-final void Function()? onTap;
+  final void Function()? onTap;
+  final String name, desc, imageUrl;
+  final double price, oldPrice;
+  final int discount;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:() {
-        navigateTo(context, ProductDetails());
-      } ,
+      onTap: () {
+        navigateTo(context, const ProductDetails());
+      },
       child: CustomCard(
-        padding: EdgeInsets.all(0),
-        margin: EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.all(0),
+        margin: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
           spacing: 10,
           children: [
             ClipRRect(
-              borderRadius: BorderRadiusGeometry.only(
+              borderRadius: const BorderRadiusGeometry.only(
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),
                 topRight: Radius.circular(10),
               ),
               child: Stack(
                 children: [
-                  CustomCashedImage(),
+                  CustomCashedImage(imageUrl: imageUrl),
                   Positioned(
                     child: Container(
                       alignment: Alignment.center,
                       width: 65,
                       height: 35,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
                           bottomRight: Radius.circular(10),
@@ -46,8 +56,8 @@ final void Function()? onTap;
                         color: AppColors.kPrimaryColor,
                       ),
                       child: Text(
-                        '10% OFF',
-                        style: TextStyle(color: Colors.white70),
+                        '$discount%',
+                        style: const TextStyle(color: Colors.white70),
                       ),
                     ),
                   ),
@@ -62,15 +72,15 @@ final void Function()? onTap;
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Product Name',
-                        style: TextStyle(
+                        name,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.favorite,
                           color: AppColors.kGreyColor,
                         ),
@@ -84,15 +94,15 @@ final void Function()? onTap;
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '320 LE',
-                            style: TextStyle(
+                            price.toString(),
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            '400 LE',
-                            style: TextStyle(
+                            oldPrice.toString(),
+                            style: const TextStyle(
                               decoration: TextDecoration.lineThrough,
                               fontSize: 16,
                               color: AppColors.kGreyColor,
@@ -100,7 +110,7 @@ final void Function()? onTap;
                           ),
                         ],
                       ),
-                      CustomButton(label: 'Buy Now'),
+                      const CustomButton(label: 'Buy Now'),
                     ],
                   ),
                 ],

@@ -5,14 +5,15 @@ import 'package:our_store/core/widgets/custom_indicator.dart';
 
 class CustomCashedImage extends StatelessWidget {
   const CustomCashedImage({
-    super.key,
+    super.key, required this.imageUrl,
   });
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl:
-          'https://images.pexels.com/photos/8268989/pexels-photo-8268989.jpeg?cs=srgb&dl=pexels-perfect-lens-8268989.jpg&fm=jpg',
+          imageUrl,
       imageBuilder: (context, imageProvider) => Container(
         height: 300,
         width: double.infinity,
@@ -23,7 +24,7 @@ class CustomCashedImage extends StatelessWidget {
           ),
         ),
       ),
-      placeholder: (context, url) => SizedBox(
+      placeholder: (context, url) => const SizedBox(
         height: 300,
         width: double.infinity,
         child: CustomIndicator(),
