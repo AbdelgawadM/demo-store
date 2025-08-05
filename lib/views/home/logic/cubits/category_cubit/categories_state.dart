@@ -19,4 +19,3 @@ final class CategoryFaluire extends CategoriesState {
   CategoryFaluire({required this.message});
 }
 
-final class CategoryEmpty extends CategoriesState {}
