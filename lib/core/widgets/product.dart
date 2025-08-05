@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:our_store/core/app_colors.dart';
-import 'package:our_store/core/functions/navigate_to.dart';
+import 'package:our_store/core/services/supabase_service.dart';
+import 'package:our_store/core/models/product_model.dart';
 import 'package:our_store/core/widgets/custom_button.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
-import 'package:our_store/views/product_details/ui/Product_details.dart';
 
-class Product extends StatelessWidget {
+class Product extends StatefulWidget {
   const Product({
     super.key,
     this.onTap,
-    required this.name,
-    required this.desc,
-    required this.price,
-    required this.oldPrice,
-    required this.discount,
-    required this.imageUrl,
+    required this.mainDiscounts,
+    required this.index, 
   });
   final void Function()? onTap;
-  final String name, desc, imageUrl;
-  final double price, oldPrice;
-  final int discount;
+
+  final ProductModel mainDiscounts;
+
+  final int index;
+
+  @override
+  State<Product> createState() => _ProductState();
+}
+
+class _ProductState extends State<Product> {
+  final SupabaseService service = SupabaseService();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        navigateTo(context, const ProductDetails());
-      },
+      onTap: widget.onTap,
       child: CustomCard(
         padding: const EdgeInsets.all(0),
         margin: const EdgeInsets.symmetric(horizontal: 12),
@@ -42,7 +44,7 @@ class Product extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  CustomCashedImage(imageUrl: imageUrl),
+                  CustomCashedImage(imageUrl: widget.mainDiscounts.imageUrl!),
                   Positioned(
                     child: Container(
                       alignment: Alignment.center,
@@ -56,7 +58,7 @@ class Product extends StatelessWidget {
                         color: AppColors.kPrimaryColor,
                       ),
                       child: Text(
-                        '$discount%',
+                        '${widget.mainDiscounts.discount}%',
                         style: const TextStyle(color: Colors.white70),
                       ),
                     ),
@@ -72,7 +74,7 @@ class Product extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        name,
+                        widget.mainDiscounts.name!,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -94,14 +96,14 @@ class Product extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            price.toString(),
+                            widget.mainDiscounts.price.toString(),
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            oldPrice.toString(),
+                            widget.mainDiscounts.oldPrice.toString(),
                             style: const TextStyle(
                               decoration: TextDecoration.lineThrough,
                               fontSize: 16,

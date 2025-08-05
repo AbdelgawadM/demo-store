@@ -1,24 +1,27 @@
 import 'package:bloc/bloc.dart';
-import 'package:our_store/core/cubits/cubit/products_state.dart';
+import 'package:our_store/views/home/logic/cubits/discounts_cubit/discounts_state.dart';
 import 'package:our_store/core/services/supabase_service.dart';
 import 'package:our_store/views/home/logic/models/discounts_model.dart';
 
-class ProductsCubit extends Cubit<ProductsState> {
-  ProductsCubit() : super(ProductsInitial());
+class DiscountsCubit extends Cubit<DiscountsState> {
+  DiscountsCubit() : super(DiscountsInitial());
   final SupabaseService service = SupabaseService();
   late List<DiscountModel> product;
 
   bool hasFetchedProducts = false;
 
-  Future<void> getDiscounts({bool force = false}) async {
+  Future<void> getDiscounts({
+    bool force = false,
+    required String parameters,
+  }) async {
     if (!force && hasFetchedProducts) return;
-    emit(ProductLoading());
+    emit(DiscountLoading());
     try {
-      product = await service.fetchDiscounts();
+      product = await service.fetchDiscounts(parametersValue: parameters);
       hasFetchedProducts = true;
       emit(DiscountSuccess(discountModel: product));
     } catch (e) {
-      emit(ProductFaluire(message: e.toString()));
+      emit(DiscountFaluire(message: e.toString()));
     }
   }
 }

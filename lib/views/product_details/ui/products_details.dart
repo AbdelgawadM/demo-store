@@ -1,16 +1,23 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:our_store/core/models/product_model.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
+import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+  const ProductDetails({
+    super.key,
+    required this.mainDiscounts,
+    required this.restDiscounts,
+  });
+  final ProductModel mainDiscounts;
+  final ProductModel restDiscounts;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Product Name'),
+        title: Text(mainDiscounts.name!),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -20,18 +27,19 @@ class ProductDetails extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          // const CustomCashedImage(
-          //   imageUrl: ,
-          // ),
+          CustomCashedImage(imageUrl: mainDiscounts.imageUrl!),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 20,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text('product name'), Text('200 LE')],
+                  children: [
+                    Text(mainDiscounts.name!),
+                    Text(mainDiscounts.price!.toString()),
+                  ],
                 ),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +53,7 @@ class ProductDetails extends StatelessWidget {
                     Icon(Icons.favorite),
                   ],
                 ),
-                const Text('books desc'),
+                Text(restDiscounts.description!),
                 RatingBar.builder(
                   initialRating: 3,
                   minRating: 1,

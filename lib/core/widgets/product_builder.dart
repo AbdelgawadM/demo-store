@@ -1,26 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:our_store/core/functions/navigate_to.dart';
 import 'package:our_store/core/widgets/product.dart';
+import 'package:our_store/views/home/logic/cubits/discounts_cubit/discounts_cubit.dart';
+import 'package:our_store/views/home/logic/cubits/discounts_cubit/discounts_state.dart';
 import 'package:our_store/views/home/logic/models/discounts_model.dart';
+import 'package:our_store/views/product_details/ui/products_details.dart';
 
-class ProductBuilder extends StatelessWidget {
-  const ProductBuilder({super.key, required this.discounts});
+class DiscountBuilder extends StatelessWidget {
+   DiscountBuilder({
+    super.key,
+    required this.mainDiscounts,
+    this.restDiscounts,
+  });
 
-  final List<DiscountModel> discounts;
+  final List<DiscountModel> mainDiscounts;
+  List<DiscountModel>? restDiscounts;
+
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemBuilder: (context, index) => Product(
-        name: discounts[index].product.name,
-        desc: discounts[index].product.description,
-        price: discounts[index].product.price,
-        oldPrice: discounts[index].product.oldPrice,
-        discount: discounts[index].product.discount,
-        imageUrl: discounts[index].product.imageUrl,
-      ),
-      separatorBuilder: (context, index) => const SizedBox(height: 15),
-      itemCount: discounts.length,
+    return BlocBuilder<DiscountsCubit, DiscountsState>(
+      builder: (context, state) {
+        return ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => Product(
+            mainDiscounts: mainDiscounts[index].product,
+            index: index,
+            onTap: () {
+              context.read<DiscountsCubit>().getDiscounts(
+                parameters: 'description',
+              );
+              if (state is DiscountSuccess) {
+                restDiscounts = state.discountModel;
+              }
+              navigateTo(
+                context,
+                ProductDetails(
+                  mainDiscounts: mainDiscounts[index].product,
+                  restDiscounts: restDiscounts![index].product,
+                ),
+              );
+            },
+          ),
+          separatorBuilder: (context, index) => const SizedBox(height: 15),
+          itemCount: mainDiscounts.length,
+        );
+      },
     );
   }
 }

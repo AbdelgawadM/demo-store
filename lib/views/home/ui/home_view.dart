@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_store/core/cubits/cubit/products_cubit.dart';
-import 'package:our_store/core/cubits/cubit/products_state.dart';
-import 'package:our_store/views/home/logic/cubits/cubit/categories_cubit.dart';
+import 'package:our_store/views/home/logic/cubits/discounts_cubit/discounts_cubit.dart';
+import 'package:our_store/views/home/logic/cubits/discounts_cubit/discounts_state.dart';
+import 'package:our_store/core/functions/custom_snackbar.dart';
+import 'package:our_store/views/home/logic/cubits/category_cubit/categories_cubit.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
 import 'package:our_store/core/widgets/product_builder.dart';
 import 'package:our_store/core/widgets/search_txt_field.dart';
@@ -17,13 +18,16 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late CategoriesCubit categoryCubit;
-  late ProductsCubit productCubit;
+  late DiscountsCubit productCubit;
 
   @override
   void initState() {
     super.initState();
     categoryCubit = context.read<CategoriesCubit>()..getCategories();
-    productCubit = context.read<ProductsCubit>()..getDiscounts();
+    productCubit = context.read<DiscountsCubit>()
+      ..getDiscounts(
+        parameters: 'id,created_at,name,price,old_price,image_url,discount',
+      );
   }
 
   @override
@@ -33,7 +37,10 @@ class _HomeViewState extends State<HomeView> {
       child: RefreshIndicator(
         onRefresh: () async {
           await categoryCubit.getCategories(force: true);
-          await productCubit.getDiscounts(force: true);
+          await productCubit.getDiscounts(
+            force: true,
+            parameters: 'id,created_at,name,price,old_price,image_url,discount',
+          );
         },
         child: ListView(
           children: [
@@ -61,12 +68,17 @@ class _HomeViewState extends State<HomeView> {
             const SizedBox(height: 20),
             const Text('Products on sale', style: TextStyle(fontSize: 24)),
             const SizedBox(height: 20),
-            BlocBuilder<ProductsCubit, ProductsState>(
+            BlocConsumer<DiscountsCubit, DiscountsState>(
+              listener: (context, state) {
+                if (state is DiscountFaluire) {
+                  customSnackBar(context, state.message);
+                }
+              },
               builder: (context, state) {
                 if (state is DiscountLoading) {
                   return const CustomIndicator();
                 } else if (state is DiscountSuccess) {
-                  return ProductBuilder(discounts: state.discountModel);
+                  return DiscountBuilder(mainDiscounts: state.discountModel);
                 } else {
                   return const Center(child: Text('Error has Ocurred'));
                 }
