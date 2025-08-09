@@ -7,15 +7,10 @@ import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
 
 class Product extends StatefulWidget {
-  const Product({
-    super.key,
-    this.onTap,
-    required this.productViewModel,
-  });
+  const Product({super.key, this.onTap, required this.productViewModel});
   final void Function()? onTap;
 
   final ProductViewModel productViewModel;
-
 
   @override
   State<Product> createState() => _ProductState();
@@ -30,7 +25,6 @@ class _ProductState extends State<Product> {
       onTap: widget.onTap,
       child: CustomCard(
         padding: const EdgeInsets.all(0),
-        margin: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
           spacing: 10,
           children: [
@@ -43,7 +37,7 @@ class _ProductState extends State<Product> {
               child: Stack(
                 children: [
                   CustomCashedImage(imageUrl: widget.productViewModel.imageUrl),
-                             ],
+                ],
               ),
             ),
             Padding(

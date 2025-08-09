@@ -11,7 +11,7 @@ import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
 import 'package:our_store/views/auth/ui/widgets/title_txt_field.dart';
 
-// ignore: must_be_immutable
+// ignore: must_be_immutable/
 class ForgetView extends StatelessWidget {
   ForgetView({super.key});
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -40,6 +40,8 @@ class ForgetView extends StatelessWidget {
                     text: 'Enter your Email to reset Password',
                   ),
                   CustomCard(
+                    padding: const EdgeInsetsGeometry.all(16),
+                    margin: const EdgeInsets.all(24),
                     child: Form(
                       key: formKey,
                       child: Column(

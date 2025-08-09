@@ -46,6 +46,8 @@ class _ProfileViewState extends State<ProfileView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomCard(
+                padding: const EdgeInsetsGeometry.all(16),
+                margin: const EdgeInsets.all(24),
                 child: Column(
                   children: [
                     const CircleAvatar(

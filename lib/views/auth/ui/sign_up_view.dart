@@ -49,6 +49,8 @@ class SignUpView extends StatelessWidget {
                       children: [
                         const TitleTxtField(text: 'Welcome To Our Store'),
                         CustomCard(
+                           padding: const EdgeInsetsGeometry.all(16),
+                    margin: const EdgeInsets.all(24),
                           child: Column(
                             spacing: 20,
                             children: [

@@ -39,6 +39,8 @@ class VerifyOtpView extends StatelessWidget {
                   const SizedBox(height: 48),
                   const TitleTxtField(text: 'verify Otp'),
                   CustomCard(
+                     padding: const EdgeInsetsGeometry.all(16),
+                    margin: const EdgeInsets.all(24),
                     child: Form(
                       key: formKey,
                       child: Column(

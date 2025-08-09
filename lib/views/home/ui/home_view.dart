@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/views/home/logic/cubits/discounts_view_cubit/discounts_view_cubit.dart';
 import 'package:our_store/core/functions/custom_snackbar.dart';
 import 'package:our_store/views/home/logic/cubits/category_cubit/categories_cubit.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
-import 'package:our_store/views/home/ui/widgets/custom_padding.dart';
 import 'package:our_store/views/home/ui/widgets/discount_builder.dart';
 import 'package:our_store/core/widgets/search_txt_field.dart';
 import 'package:our_store/views/home/logic/cubits/discounts_view_cubit/discounts_view_states.dart';
@@ -30,8 +30,11 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPadding(
+    return Padding(
+      padding: const EdgeInsetsGeometry.symmetric(horizontal: 8),
       child: RefreshIndicator(
+        color: AppColors.kPrimaryColor,
+        backgroundColor: AppColors.kScaffoldColor,
         onRefresh: () async {
           await categoryCubit.getCategories(force: true);
           await productCubit.getDiscountsView(force: true);

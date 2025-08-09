@@ -16,7 +16,6 @@ class Discountproduct extends StatefulWidget {
 
   final DiscountsViewModel discountsViewModel;
 
-
   @override
   State<Discountproduct> createState() => _DiscountproductState();
 }
@@ -30,7 +29,6 @@ class _DiscountproductState extends State<Discountproduct> {
       onTap: widget.onTap,
       child: CustomCard(
         padding: const EdgeInsets.all(0),
-        margin: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
           spacing: 10,
           children: [
