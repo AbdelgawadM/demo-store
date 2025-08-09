@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
+import 'package:our_store/core/cubits/product_details_cubit/product_details_cubit.dart';
 import 'package:our_store/secret_constants.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/ui/sign_up_view.dart';
@@ -30,8 +31,11 @@ class _DemoStoreState extends State<DemoStore> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => ProductDetailsCubit()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Demo Store',
