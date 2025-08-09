@@ -1,51 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:our_store/core/cubits/product_details_cubit/product_details_cubit.dart';
+import 'package:our_store/core/cubits/product_details_cubit/product_details_state.dart';
 import 'package:our_store/core/functions/navigate_to.dart';
-import 'package:our_store/core/widgets/product.dart';
-import 'package:our_store/views/home/logic/cubits/discounts_cubit/discounts_cubit.dart';
-import 'package:our_store/views/home/logic/cubits/discounts_cubit/discounts_state.dart';
-import 'package:our_store/views/home/logic/models/discounts_model.dart';
-import 'package:our_store/views/product_details/ui/products_details.dart';
+import 'package:our_store/core/models/product_details_model.dart';
+import 'package:our_store/core/models/product_view_model.dart';
+import 'package:our_store/core/widgets/custom_indicator.dart';
+import 'package:our_store/views/home/ui/widgets/product.dart';
 
-class DiscountBuilder extends StatelessWidget {
-   DiscountBuilder({
-    super.key,
-    required this.mainDiscounts,
-    this.restDiscounts,
-  });
+import 'package:our_store/views/product_details/ui/products_details_view.dart';
 
-  final List<DiscountModel> mainDiscounts;
-  List<DiscountModel>? restDiscounts;
+class ProductBuilder extends StatelessWidget {
+  const ProductBuilder({super.key, required this.productViewModel});
+
+  final List<ProductViewModel> productViewModel;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DiscountsCubit, DiscountsState>(
+    return BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
+      listener: (context, state) {
+        if (state is ProductDetailsSuccess) {
+          final ProductDetailsCubit cubit = context.read<ProductDetailsCubit>();
+          final List<ProductDetailsModel> productDetailsModel =
+              state.productDetailsModel;
+
+          final selected = cubit.selectedIndex;
+
+          navigateTo(
+            context,
+            ProductsDetailsView(
+              productViewModel: productViewModel[selected!],
+              productDetailsModel: productDetailsModel.first,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
-        return ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) => Product(
-            mainDiscounts: mainDiscounts[index].product,
-            index: index,
-            onTap: () {
-              context.read<DiscountsCubit>().getDiscounts(
-                parameters: 'description',
-              );
-              if (state is DiscountSuccess) {
-                restDiscounts = state.discountModel;
-              }
-              navigateTo(
-                context,
-                ProductDetails(
-                  mainDiscounts: mainDiscounts[index].product,
-                  restDiscounts: restDiscounts![index].product,
+        return state is ProductDetailsLoading
+            ? const CustomIndicator()
+            : ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) => Product(
+                  productViewModel: productViewModel[index],
+                  onTap: () {
+                    final ProductDetailsCubit cubit = context
+                        .read<ProductDetailsCubit>();
+                    cubit.selectedIndex = index;
+                    cubit.getProductDetails(id: productViewModel[index].id);
+                  },
                 ),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 15),
+                itemCount: productViewModel.length,
               );
-            },
-          ),
-          separatorBuilder: (context, index) => const SizedBox(height: 15),
-          itemCount: mainDiscounts.length,
-        );
       },
     );
   }
