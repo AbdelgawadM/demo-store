@@ -23,7 +23,8 @@ class SupabaseService {
           .map((e) => CategoryModel(label: e.toString()))
           .toList();
 
-      print('Fetched categories: $modelList');
+      print('Fetched categories: ');
+        print(response);
 
       return modelList;
     } catch (e) {

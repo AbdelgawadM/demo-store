@@ -29,7 +29,6 @@ class MainHomeView extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => CategoriesCubit()),
         BlocProvider(create: (_) => DiscountsViewCubit()),
-        
       ],
       child: Scaffold(
         body: SafeArea(child: Obx(() => views[_selectedIndex.value])),

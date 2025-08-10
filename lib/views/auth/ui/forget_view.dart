@@ -11,11 +11,10 @@ import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
 import 'package:our_store/views/auth/ui/widgets/title_txt_field.dart';
 
-// ignore: must_be_immutable/
 class ForgetView extends StatelessWidget {
   ForgetView({super.key});
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController controller = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

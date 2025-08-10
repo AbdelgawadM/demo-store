@@ -114,6 +114,8 @@ class AuthCubit extends Cubit<AuthCubitState> {
           .eq('id', client.auth.currentUser!.id);
       userModel = UserModel.fromJson(response);
       hasFetchedUserData = true;
+      print('user data');
+      print(response);
       emit(SuccessUserDataGot());
     } catch (e) {
       emit(FailureUserDataGot(message: e.toString()));
