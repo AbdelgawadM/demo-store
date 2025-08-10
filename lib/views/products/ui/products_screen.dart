@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_store/core/cubits/product_details_cubit/product_details_cubit.dart';
-import 'package:our_store/core/cubits/product_details_cubit/product_details_state.dart';
-import 'package:our_store/core/functions/navigate_to.dart';
-import 'package:our_store/core/models/product_view_model.dart';
+import 'package:our_store/core/cubits/product_view_cubit/product_view_cubit.dart';
+import 'package:our_store/core/cubits/product_view_cubit/product_view_states.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
-import 'package:our_store/views/home/ui/widgets/product.dart';
-import 'package:our_store/views/product_details/ui/products_details_view.dart';
+import 'package:our_store/core/widgets/product_builder.dart';
 
-class ProductsScreen extends StatelessWidget {
-  const ProductsScreen({
-    super.key,
-    required this.productViewModel,
-    required this.title,
-  });
-  final List<ProductViewModel> productViewModel;
+class ProductsScreen extends StatefulWidget {
+  const ProductsScreen({super.key, required this.title});
   final String title;
+
+  @override
+  State<ProductsScreen> createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends State<ProductsScreen> {
+  late ProductViewCubit productViewCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    productViewCubit = context.read<ProductViewCubit>()
+      ..getProductView(category: widget.title);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(widget.title),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -28,51 +35,18 @@ class ProductsScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
-        listener: (context, state) {
-          if (state is ProductDetailsSuccess) {
-            final cubit = context.read<ProductDetailsCubit>();
-            final productDetailsModel = state.productDetailsModel;
-
-            final selected = cubit.selectedIndex;
-
-            navigateTo(
-              context,
-              ProductsDetailsView(
-                productViewModel: productViewModel[selected!],
-                productDetailsModel: productDetailsModel.first,
-              ),
-            );
-          }
-        },
+      body: BlocBuilder<ProductViewCubit, ProductViewState>(
         builder: (context, state) {
-          return state is ProductDetailsLoading
-              ? const CustomIndicator()
-              : ListView(
+          return state is ProductViewSuccess
+              ? ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   children: [
                     const SizedBox(height: 10),
-                    ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: productViewModel.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 15),
-                      itemBuilder: (context, index) => Product(
-                        productViewModel: productViewModel[index],
-                        onTap: () {
-                          final ProductDetailsCubit cubit = context
-                              .read<ProductDetailsCubit>();
-                          cubit.selectedIndex = index;
-                          cubit.getProductDetails(
-                            id: productViewModel[index].id,
-                          );
-                        },
-                      ),
-                    ),
+                    ProductBuilder(productViewModel: state.productViewModel),
                     const SizedBox(height: 20),
                   ],
-                );
+                )
+              : const CustomIndicator();
         },
       ),
     );
