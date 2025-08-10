@@ -7,7 +7,6 @@ class DiscountsDetailsCubit extends Cubit<DiscountsDetailsState> {
   DiscountsDetailsCubit() : super(DiscountsDetailsInitial());
   final SupabaseService service = SupabaseService();
   late List<DiscountsDetailsModel> discountsDetailsModel;
-  int? selectedIndex;
 
   final Map<String, List<DiscountsDetailsModel>> cache = {};
 

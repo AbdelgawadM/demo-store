@@ -9,9 +9,9 @@ final class ProductViewInitial extends ProductViewState {}
 final class ProductViewLoading extends ProductViewState {}
 
 final class ProductViewSuccess extends ProductViewState {
-  final List<ProductViewModel> producttViewModel;
+  final List<ProductViewModel> productViewModel;
 
-  ProductViewSuccess({required this.producttViewModel});
+  ProductViewSuccess({required this.productViewModel});
 }
 
 final class ProductViewFaluire extends ProductViewState {

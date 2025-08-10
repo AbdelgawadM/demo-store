@@ -7,7 +7,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
   final SupabaseService service = SupabaseService();
   late List<ProductDetailsModel> productDetailsModel;
-  int? selectedIndex;
 
   final Map<String, List<ProductDetailsModel>> cache = {};
 
