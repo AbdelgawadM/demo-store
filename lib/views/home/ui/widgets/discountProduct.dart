@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/core/services/supabase_service.dart';
-import 'package:our_store/core/widgets/custom_button.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/home/logic/models/discounts_view_model.dart';
 import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
@@ -100,17 +99,22 @@ class _DiscountproductState extends State<Discountproduct> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            widget.discountsViewModel.oldPrice.toString(),
-                            style: const TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              fontSize: 16,
-                              color: AppColors.kGreyColor,
-                            ),
-                          ),
+                          // Text(
+                          //   widget.discountsViewModel.oldPrice.toString(),
+                          //   style: const TextStyle(
+                          //     decoration: TextDecoration.lineThrough,
+                          //     fontSize: 16,
+                          //     color: AppColors.kGreyColor,
+                          //   ),
+                          // ),
                         ],
                       ),
-                      const CustomButton(label: 'Buy Now'),
+                      Row(
+                        children: [
+                          Text(widget.discountsViewModel.avgRate.toString()),
+                          const Icon(Icons.star, color: Colors.amberAccent),
+                        ],
+                      ),
                     ],
                   ),
                 ],

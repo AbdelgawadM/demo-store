@@ -18,7 +18,7 @@ class CategoryBuilder extends StatelessWidget {
       itemBuilder: (context, index) => Category(
         category: categories[index],
         onTap: () {
-          navigateTo(context, ProductsScreen(title: categories[index].label));
+          navigateTo(context, ProductsScreen(categoryModel: categories[index]));
         },
       ),
     );
