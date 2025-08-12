@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
+import 'package:our_store/core/cubits/product_details_cubit/product_details_cubit.dart';
+import 'package:our_store/core/cubits/product_view_cubit/product_view_cubit.dart';
+import 'package:our_store/views/home/logic/cubits/discounts_details_cubit/discounts_details_cubit.dart';
 import 'package:our_store/views/home/logic/cubits/discounts_view_cubit/discounts_view_cubit.dart';
 import 'package:our_store/core/functions/custom_snackbar.dart';
 import 'package:our_store/views/home/logic/cubits/category_cubit/categories_cubit.dart';
@@ -19,13 +22,13 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late CategoriesCubit categoryCubit;
-  late DiscountsViewCubit productCubit;
+  late DiscountsViewCubit discountsViewCubit;
 
   @override
   void initState() {
     super.initState();
     categoryCubit = context.read<CategoriesCubit>()..getCategories();
-    productCubit = context.read<DiscountsViewCubit>()..getDiscountsView();
+    discountsViewCubit = context.read<DiscountsViewCubit>()..getDiscountsView();
   }
 
   @override
@@ -36,8 +39,11 @@ class _HomeViewState extends State<HomeView> {
         color: AppColors.kPrimaryColor,
         backgroundColor: AppColors.kScaffoldColor,
         onRefresh: () async {
-          await categoryCubit.getCategories(force: true);
-          await productCubit.getDiscountsView(force: true);
+          await categoryCubit.refresh();
+          await discountsViewCubit.refresh();
+          context.read<DiscountsDetailsCubit>().refresh();
+          context.read<ProductViewCubit>().refresh();
+          context.read<ProductDetailsCubit>().refresh();
         },
         child: ListView(
           children: [
@@ -54,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
                   return const CustomIndicator();
                 } else if (state is CategorySuccess) {
                   return SizedBox(
-                    height: 100,
+                    height: 150,
                     child: CategoryBuilder(categories: state.categoryModel),
                   );
                 } else {

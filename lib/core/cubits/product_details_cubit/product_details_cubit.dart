@@ -9,6 +9,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   late List<ProductDetailsModel> productDetailsModel;
 
   final Map<String, List<ProductDetailsModel>> cache = {};
+  void refresh() async {
+    cache.clear();
+  }
 
   Future<void> getProductDetails({required String id}) async {
     if (cache.containsKey(id)) {

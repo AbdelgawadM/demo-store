@@ -9,6 +9,9 @@ class DiscountsDetailsCubit extends Cubit<DiscountsDetailsState> {
   late List<DiscountsDetailsModel> discountsDetailsModel;
 
   final Map<String, List<DiscountsDetailsModel>> cache = {};
+  void refresh() async {
+    cache.clear();
+  }
 
   Future<void> getDiscountsDetails({required String id}) async {
     emit(DiscountsDetailsLoading());
