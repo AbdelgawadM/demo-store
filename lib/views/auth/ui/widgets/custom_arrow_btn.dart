@@ -16,8 +16,8 @@ class CustomArrowBtn extends StatelessWidget {
         backgroundColor: AppColors.kPrimaryColor,
         foregroundColor: AppColors.kWhiteColor,
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      child: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         child: Icon(Icons.arrow_forward),
       ),
     );

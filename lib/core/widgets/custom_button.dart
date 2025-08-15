@@ -12,7 +12,7 @@ final String label;
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: ButtonStyle(
+      style: const ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(
           AppColors.kPrimaryColor,
         ),

@@ -13,7 +13,7 @@ class CustomTextBtn extends StatelessWidget {
       onTap: onTap,
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: AppColors.kPrimaryColor,
           fontSize: 18,
           fontWeight: FontWeight.bold,

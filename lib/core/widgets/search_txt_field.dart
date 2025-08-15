@@ -11,7 +11,7 @@ class SearchTxtField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
-      hint: Text(
+      hint: const Text(
         'Search in Market...',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
@@ -19,7 +19,7 @@ class SearchTxtField extends StatelessWidget {
       fillColor: AppColors.kWhiteColor,
       sufIcon: ElevatedButton.icon(
         onPressed: () {},
-        label: Icon(Icons.search, color: AppColors.kWhiteColor, size: 24),
+        label: const Icon(Icons.search, color: AppColors.kWhiteColor, size: 24),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.kPrimaryColor,
           shape: RoundedRectangleBorder(

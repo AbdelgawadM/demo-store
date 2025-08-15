@@ -9,27 +9,27 @@ class EditNameView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit name'),
+        title: const Text('Edit name'),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Column(
           children: [
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: CustomTextField(
                 keyboardType: TextInputType.name,
                 label: 'Enter Name',
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             CustomButton(label: 'Update', onPressed: () {}),
           ],
         ),

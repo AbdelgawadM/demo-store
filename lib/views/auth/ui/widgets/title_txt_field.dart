@@ -11,7 +11,7 @@ class TitleTxtField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 24.0),
       child: Text(
         text,
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       ),
     );
   }

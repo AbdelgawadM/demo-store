@@ -33,18 +33,18 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         fillColor:fillColor ,
         filled: true,
-        labelStyle: TextStyle(color: AppColors.kBlackColor),
+        labelStyle: const TextStyle(color: AppColors.kBlackColor),
         labelText: label,
         hint: hint,
-        hintStyle: TextStyle(color: AppColors.kBlackColor),
+        hintStyle: const TextStyle(color: AppColors.kBlackColor),
         suffixIcon: sufIcon,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.kBordersideColor, width: 2),
+          borderSide: const BorderSide(color: AppColors.kBordersideColor, width: 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppColors.kBordersideColor, width: 2),
+          borderSide: const BorderSide(color: AppColors.kBordersideColor, width: 2),
         ),
       ),
     );
