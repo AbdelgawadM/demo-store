@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:our_store/core/app_colors.dart';
-import 'package:our_store/views/home/logic/cubits/category_cubit/categories_cubit.dart';
 import 'package:our_store/views/favorite/ui/favorite_view.dart';
-import 'package:our_store/views/home/logic/cubits/discounts_view_cubit/discounts_view_cubit.dart';
+import 'package:our_store/views/home/logic/cubits/category_cubit/categories_cubit.dart';
 import 'package:our_store/views/home/ui/home_view.dart';
 import 'package:our_store/views/profile/ui/profile_view.dart';
 import 'package:our_store/views/store/ui/store_view.dart';
@@ -26,10 +25,7 @@ class MainHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => CategoriesCubit()),
-        BlocProvider(create: (_) => DiscountsViewCubit()),
-      ],
+      providers: [BlocProvider(create: (_) => CategoriesCubit())],
       child: Scaffold(
         body: SafeArea(child: Obx(() => views[_selectedIndex.value])),
         bottomNavigationBar: Container(
