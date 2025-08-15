@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:our_store/core/cubits/product_details_cubit/product_details_cubit.dart';
-import 'package:our_store/core/cubits/product_details_cubit/product_details_state.dart';
+import 'package:our_store/core/cubits/details_cubit/details_cubit.dart';
+import 'package:our_store/core/cubits/details_cubit/details_state.dart';
 import 'package:our_store/core/models/product_view_model.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
@@ -17,13 +17,13 @@ class ProductsDetailsView extends StatefulWidget {
 }
 
 class _ProductsDetailsViewState extends State<ProductsDetailsView> {
-  late ProductDetailsCubit productDetailsCubit;
+  late DetailsCubit detailsCubit;
 
   @override
   void initState() {
     super.initState();
-    productDetailsCubit = context.read<ProductDetailsCubit>()
-      ..getProductDetails(id: widget.productViewModel.id);
+    detailsCubit = context.read<DetailsCubit>()
+      ..getProductDetails(productId: widget.productViewModel.productId);
   }
 
   @override
@@ -38,7 +38,7 @@ class _ProductsDetailsViewState extends State<ProductsDetailsView> {
           icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+      body: BlocBuilder<DetailsCubit, DetailsState>(
         builder: (context, state) {
           return state is ProductDetailsSuccess
               ? ListView(

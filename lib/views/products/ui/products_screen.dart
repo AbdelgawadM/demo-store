@@ -16,12 +16,11 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   late ProductViewCubit productViewCubit;
-
   @override
   void initState() {
     super.initState();
     productViewCubit = context.read<ProductViewCubit>()
-      ..getProductView(id: widget.categoryModel.id);
+      ..getProductView(categoryId: widget.categoryModel.categoryId);
   }
 
   @override

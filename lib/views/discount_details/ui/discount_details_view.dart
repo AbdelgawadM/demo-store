@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:our_store/core/cubits/details_cubit/details_cubit.dart';
+import 'package:our_store/core/cubits/details_cubit/details_state.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
-import 'package:our_store/views/home/logic/cubits/discounts_details_cubit/discounts_details_cubit.dart';
-import 'package:our_store/views/home/logic/cubits/discounts_details_cubit/discounts_details_state.dart';
 import 'package:our_store/views/home/logic/models/discounts_view_model.dart';
 import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
 
@@ -17,19 +17,22 @@ class DiscountDetailsView extends StatefulWidget {
 }
 
 class _DiscountDetailsViewState extends State<DiscountDetailsView> {
-  late DiscountsDetailsCubit discountDetailsCubit;
+  late DetailsCubit detailsCubit;
   @override
   void initState() {
     super.initState();
-    discountDetailsCubit = context.read<DiscountsDetailsCubit>()
-      ..getDiscountsDetails(id: widget.discountsViewModel.id);
+    detailsCubit = context.read<DetailsCubit>()
+      ..getDiscountDetails(
+        productId: widget.discountsViewModel.productViewModel.productId,
+        discountId: widget.discountsViewModel.discountId,
+      );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.discountsViewModel.name),
+        title: Text(widget.discountsViewModel.productViewModel.name),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -37,13 +40,14 @@ class _DiscountDetailsViewState extends State<DiscountDetailsView> {
           icon: const Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: BlocBuilder<DiscountsDetailsCubit, DiscountsDetailsState>(
+      body: BlocBuilder<DetailsCubit, DetailsState>(
         builder: (context, state) {
-          return state is DiscountsDetailsSuccess
+          return state is DiscountDetailsSuccess
               ? ListView(
                   children: [
                     CustomCashedImage(
-                      imageUrl: widget.discountsViewModel.imageUrl,
+                      imageUrl:
+                          widget.discountsViewModel.productViewModel.imageUrl,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -57,22 +61,34 @@ class _DiscountDetailsViewState extends State<DiscountDetailsView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(widget.discountsViewModel.name),
                               Text(
-                                widget.discountsViewModel.price.toString(),
+                                widget.discountsViewModel.productViewModel.name,
+                              ),
+                              Text(
+                                widget.discountsViewModel.productViewModel.price
+                                    .toString(),
                               ),
                             ],
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 children: [
-                                  Text('0 '),
-                                  Icon(Icons.star, color: Colors.amberAccent),
+                                  Text(
+                                    widget
+                                        .discountsViewModel
+                                        .productViewModel
+                                        .avgRate
+                                        .toString(),
+                                  ),
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.amberAccent,
+                                  ),
                                 ],
                               ),
-                              Icon(Icons.favorite),
+                              const Icon(Icons.favorite),
                             ],
                           ),
                           Text(state.discountDetailsModel.first.description),
