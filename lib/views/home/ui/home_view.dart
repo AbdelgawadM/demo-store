@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
-import 'package:our_store/core/cubits/product_details_cubit/product_details_cubit.dart';
+import 'package:our_store/core/cubits/details_cubit/details_cubit.dart';
 import 'package:our_store/core/cubits/product_view_cubit/product_view_cubit.dart';
-import 'package:our_store/views/home/logic/cubits/discounts_details_cubit/discounts_details_cubit.dart';
-import 'package:our_store/views/home/logic/cubits/discounts_view_cubit/discounts_view_cubit.dart';
 import 'package:our_store/core/functions/custom_snackbar.dart';
 import 'package:our_store/views/home/logic/cubits/category_cubit/categories_cubit.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
+import 'package:our_store/views/home/logic/cubits/discounts_view_cubit/discounts_view_cubit.dart';
+import 'package:our_store/views/home/logic/cubits/discounts_view_cubit/discounts_view_states.dart';
 import 'package:our_store/views/home/ui/widgets/discount_builder.dart';
 import 'package:our_store/core/widgets/search_txt_field.dart';
-import 'package:our_store/views/home/logic/cubits/discounts_view_cubit/discounts_view_states.dart';
 import 'package:our_store/views/home/ui/widgets/category_builders.dart';
+import 'package:our_store/views/home/ui/widgets/headings.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -41,26 +41,24 @@ class _HomeViewState extends State<HomeView> {
         onRefresh: () async {
           await categoryCubit.refresh();
           await discountsViewCubit.refresh();
-          context.read<DiscountsDetailsCubit>().refresh();
           context.read<ProductViewCubit>().refresh();
-          context.read<ProductDetailsCubit>().refresh();
+          context.read<DetailsCubit>().refresh();
         },
         child: ListView(
           children: [
             const SizedBox(height: 20),
             const SearchTxtField(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Image(image: AssetImage('assets/images/buy.jpg')),
-            const SizedBox(height: 20),
-            const Text('Popular Categories', style: TextStyle(fontSize: 24)),
-            const SizedBox(height: 20),
+            const Headings(title: 'Categories'),
+            const SizedBox(height: 5),
             BlocBuilder<CategoriesCubit, CategoriesState>(
               builder: (context, state) {
                 if (state is CategoryLoading) {
                   return const CustomIndicator();
                 } else if (state is CategorySuccess) {
                   return SizedBox(
-                    height: 150,
+                    height: 140,
                     child: CategoryBuilder(categories: state.categoryModel),
                   );
                 } else {
@@ -68,9 +66,9 @@ class _HomeViewState extends State<HomeView> {
                 }
               },
             ),
-            const SizedBox(height: 20),
-            const Text('Products on sale', style: TextStyle(fontSize: 24)),
-            const SizedBox(height: 20),
+            const SizedBox(height: 5),
+            const Headings(title: 'Products On sale'),
+            const SizedBox(height: 10),
             BlocConsumer<DiscountsViewCubit, DiscountsViewState>(
               listener: (context, state) {
                 if (state is DiscountsViewFaluire) {
