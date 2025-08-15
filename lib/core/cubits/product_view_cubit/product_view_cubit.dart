@@ -8,20 +8,22 @@ class ProductViewCubit extends Cubit<ProductViewState> {
   final SupabaseService service = SupabaseService();
   late List<ProductViewModel> productsViewModel;
 
-  final Map<String, List<ProductViewModel>> cache = {};
-  void refresh() async {
-    cache.clear();
+  final Map<String, dynamic> productViewCache = {};
+  Future<void> refresh() async {
+    productViewCache.clear();
   }
 
-  Future<void> getProductView({required String id}) async {
-    if (cache.containsKey(id)) {
-      emit(ProductViewSuccess(productViewModel: cache[id]!));
+  Future<void> getProductView({required String categoryId}) async {
+    if (productViewCache.containsKey(categoryId)) {
+      emit(ProductViewSuccess(productViewModel: productViewCache[categoryId]!));
       return;
     }
     emit(ProductViewLoading());
     try {
-      productsViewModel = await service.fetchProductView(id: id);
-      cache[id] = productsViewModel;
+      productsViewModel = await service.fetchProductView(
+        categoryId: categoryId,
+      );
+      productViewCache[categoryId] = productsViewModel;
       emit(ProductViewSuccess(productViewModel: productsViewModel));
     } catch (e) {
       emit(ProductViewFaluire(message: e.toString()));

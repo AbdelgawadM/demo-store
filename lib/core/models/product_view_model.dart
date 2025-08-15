@@ -1,12 +1,12 @@
 class ProductViewModel {
-  final String id;
+  final String productId;
   final String name;
   final double price;
   final String imageUrl;
   final double avgRate;
 
   ProductViewModel({
-    required this.id,
+    required this.productId,
     required this.name,
     required this.price,
     required this.imageUrl,
@@ -15,7 +15,7 @@ class ProductViewModel {
 
   factory ProductViewModel.fromJson(Map<String, dynamic> json) {
     return ProductViewModel(
-      id: json['id'],
+      productId: json['product_id'],
       name: json['name'],
       price: (json['price'] as num).toDouble(),
       imageUrl: json['image_url'],

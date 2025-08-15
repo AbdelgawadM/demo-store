@@ -19,3 +19,5 @@ final class ProductViewFaluire extends ProductViewState {
 
   ProductViewFaluire({required this.message});
 }
+
+
