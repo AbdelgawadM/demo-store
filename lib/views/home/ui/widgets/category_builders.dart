@@ -11,9 +11,8 @@ class CategoryBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
       itemCount: categories.length,
-      separatorBuilder: (context, index) => const SizedBox(width: 15),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => Category(
         category: categories[index],

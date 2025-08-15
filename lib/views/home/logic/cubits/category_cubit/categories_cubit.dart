@@ -12,8 +12,8 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   bool hasFetchedCategories = false;
   Future<void> refresh() async {
-    hasFetchedCategories = false;
-    await service.fetchCategories();
+    category = await service.fetchCategories();
+    emit(CategorySuccess(categoryModel: category));
   }
 
   Future<void> getCategories() async {
