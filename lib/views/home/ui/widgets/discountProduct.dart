@@ -40,7 +40,8 @@ class _DiscountproductState extends State<Discountproduct> {
               child: Stack(
                 children: [
                   CustomCashedImage(
-                    imageUrl: widget.discountsViewModel.imageUrl,
+                    imageUrl:
+                        widget.discountsViewModel.productViewModel.imageUrl,
                   ),
                   Positioned(
                     child: Container(
@@ -71,7 +72,7 @@ class _DiscountproductState extends State<Discountproduct> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        widget.discountsViewModel.name,
+                        widget.discountsViewModel.productViewModel.name,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -93,7 +94,8 @@ class _DiscountproductState extends State<Discountproduct> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.discountsViewModel.price.toString(),
+                            widget.discountsViewModel.productViewModel.price
+                                .toString(),
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -111,7 +113,10 @@ class _DiscountproductState extends State<Discountproduct> {
                       ),
                       Row(
                         children: [
-                          Text(widget.discountsViewModel.avgRate.toString()),
+                          Text(
+                            widget.discountsViewModel.productViewModel.avgRate
+                                .toString(),
+                          ),
                           const Icon(Icons.star, color: Colors.amberAccent),
                         ],
                       ),
