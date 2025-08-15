@@ -93,7 +93,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
     emit(LoadingUserDataAdded());
     try {
       await client.from('users').insert({
-        'id': client.auth.currentUser!.id,
+        'user_id': client.auth.currentUser!.id,
         'name': name,
         'email': email,
       });
@@ -111,7 +111,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
       final response = await client
           .from('users')
           .select()
-          .eq('id', client.auth.currentUser!.id);
+          .eq('user_id', client.auth.currentUser!.id);
       userModel = UserModel.fromJson(response);
       hasFetchedUserData = true;
       print('user data');
