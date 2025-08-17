@@ -18,3 +18,13 @@ final class FavoriteFaliure extends FavoriteState {
 
   FavoriteFaliure({required this.message});
 }
+
+// final class FavoriteAddedLoading extends FavoriteState {}
+
+final class FavoriteAddedSuccess extends FavoriteState {}//just informing
+
+final class FavoriteAddedFaliure extends FavoriteState {
+  final String message;
+
+  FavoriteAddedFaliure({required this.message});
+}
