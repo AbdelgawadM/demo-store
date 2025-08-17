@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
+import 'package:our_store/core/cubits/favorite_cubit/favorite_cubit.dart';
 import 'package:our_store/core/services/supabase_service.dart';
 import 'package:our_store/core/models/product_view_model.dart';
+import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
 
@@ -54,7 +57,18 @@ class _ProductState extends State<Product> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<FavoriteCubit>().addToFavorites(
+                            productViewModel: widget.productViewModel,
+                            productId: widget.productViewModel.productId,
+                            userId: context
+                                .read<AuthCubit>()
+                                .client
+                                .auth
+                                .currentUser!
+                                .id,
+                          );
+                        },
                         icon: const Icon(
                           Icons.favorite,
                           color: AppColors.kGreyColor,
