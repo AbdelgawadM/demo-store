@@ -149,4 +149,26 @@ class SupabaseService {
       throw Exception(e.toString());
     }
   }
+
+  Future<void> addFavorite({
+    required String userId,
+    required String productId,
+  }) async {
+    try {
+      final Map<String, dynamic> favoriteJson = FavoriteModel.toJson(
+        userId: userId,
+        productId: productId,
+      );
+      final response = await apiServices.postData('favorites', favoriteJson);
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        print('Favorite added successfully');
+      } else {
+        print('Failed to add favorite: ${response.statusCode}');
+      }
+    } catch (e) {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
+  }
 }
