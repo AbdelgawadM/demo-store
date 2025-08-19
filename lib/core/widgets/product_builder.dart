@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_store/core/functions/navigate_to.dart';
-import 'package:our_store/core/models/product_view_model.dart';
-import 'package:our_store/views/home/ui/widgets/product.dart';
+import 'package:our_store/views/products/logic/models/product_view_model.dart';
+import 'package:our_store/core/widgets/product.dart';
 import 'package:our_store/views/product_details/ui/products_details_view.dart';
 
 class ProductBuilder extends StatelessWidget {

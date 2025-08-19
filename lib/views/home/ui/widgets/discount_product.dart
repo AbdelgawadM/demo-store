@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
-import 'package:our_store/core/cubits/favorite_cubit/favorite_cubit.dart';
+import 'package:our_store/views/favorite/logic/cubits/favorite_cubit/favorite_cubit.dart';
 import 'package:our_store/core/services/supabase_service.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/home/logic/models/discounts_view_model.dart';
-import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
+import 'package:our_store/core/widgets/custom_cashed_image.dart';
 
 class Discountproduct extends StatefulWidget {
   const Discountproduct({
@@ -24,6 +24,7 @@ class Discountproduct extends StatefulWidget {
 
 class _DiscountproductState extends State<Discountproduct> {
   final SupabaseService service = SupabaseService();
+  late FavoriteCubit favoriteCubit = context.read<FavoriteCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class _DiscountproductState extends State<Discountproduct> {
                       ),
                       IconButton(
                         onPressed: () {
-                          context.read<FavoriteCubit>().addToFavorites(
+                          favoriteCubit.toggleFavorites(
                             productViewModel:
                                 widget.discountsViewModel.productViewModel,
                             productId: widget
@@ -98,9 +99,11 @@ class _DiscountproductState extends State<Discountproduct> {
                                 .id,
                           );
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.favorite,
-                          color: AppColors.kGreyColor,
+                          color: favoriteCubit.isFavColor
+                              ? AppColors.kPrimaryColor
+                              : AppColors.kGreyColor,
                         ),
                       ),
                     ],

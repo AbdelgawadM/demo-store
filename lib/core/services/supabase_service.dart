@@ -1,6 +1,6 @@
-import 'package:our_store/core/models/favorite_model.dart';
+import 'package:our_store/views/favorite/logic/models/favorite_model.dart';
 import 'package:our_store/core/models/details_model.dart';
-import 'package:our_store/core/models/product_view_model.dart';
+import 'package:our_store/views/products/logic/models/product_view_model.dart';
 import 'package:our_store/core/services/api_services.dart';
 import 'package:our_store/views/home/logic/models/category_model.dart';
 import 'package:our_store/views/home/logic/models/discounts_view_model.dart';
@@ -165,6 +165,25 @@ class SupabaseService {
         print('Favorite added successfully');
       } else {
         print('Failed to add favorite: ${response.statusCode}');
+        throw Exception('error in add request :${response.statusCode}');
+      }
+    } catch (e) {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> removeFavorite({required String productId}) async {
+    try {
+      final response = await apiServices.deleteData(
+        'favorites?for_product=eq.$productId',
+      );
+
+      if (response.statusCode == 204 || response.statusCode == 200) {
+        print('Favorite removed successfully');
+      } else {
+        print('Failed to remove favorite: ${response.statusCode}');
+        throw Exception('error in delete request :${response.statusCode}');
       }
     } catch (e) {
       print(e.toString());

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
-import 'package:our_store/core/cubits/favorite_cubit/favorite_cubit.dart';
+import 'package:our_store/views/favorite/logic/cubits/favorite_cubit/favorite_cubit.dart';
 import 'package:our_store/core/services/supabase_service.dart';
-import 'package:our_store/core/models/product_view_model.dart';
+import 'package:our_store/views/products/logic/models/product_view_model.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
-import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
+import 'package:our_store/core/widgets/custom_cashed_image.dart';
 
 class Product extends StatefulWidget {
   const Product({super.key, this.onTap, required this.productViewModel});
@@ -20,6 +20,7 @@ class Product extends StatefulWidget {
 
 class _ProductState extends State<Product> {
   final SupabaseService service = SupabaseService();
+  late FavoriteCubit favoriteCubit = context.read<FavoriteCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,7 @@ class _ProductState extends State<Product> {
                       ),
                       IconButton(
                         onPressed: () {
-                          context.read<FavoriteCubit>().addToFavorites(
+                          favoriteCubit.toggleFavorites(
                             productViewModel: widget.productViewModel,
                             productId: widget.productViewModel.productId,
                             userId: context
@@ -69,9 +70,11 @@ class _ProductState extends State<Product> {
                                 .id,
                           );
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.favorite,
-                          color: AppColors.kGreyColor,
+                          color: favoriteCubit.isFavColor
+                              ? AppColors.kPrimaryColor
+                              : AppColors.kGreyColor,
                         ),
                       ),
                     ],

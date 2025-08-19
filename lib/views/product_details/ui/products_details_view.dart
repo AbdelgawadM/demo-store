@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:our_store/core/cubits/details_cubit/details_cubit.dart';
 import 'package:our_store/core/cubits/details_cubit/details_state.dart';
-import 'package:our_store/core/models/product_view_model.dart';
+import 'package:our_store/views/products/logic/models/product_view_model.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
-import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
+import 'package:our_store/core/widgets/custom_cashed_image.dart';
 
 class ProductsDetailsView extends StatefulWidget {
   const ProductsDetailsView({super.key, required this.productViewModel});

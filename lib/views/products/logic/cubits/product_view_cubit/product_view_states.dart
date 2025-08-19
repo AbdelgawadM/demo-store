@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:our_store/core/models/product_view_model.dart';
+import 'package:our_store/views/products/logic/models/product_view_model.dart';
 
 @immutable
 sealed class ProductViewState {}

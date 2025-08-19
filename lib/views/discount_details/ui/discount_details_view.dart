@@ -6,7 +6,7 @@ import 'package:our_store/core/cubits/details_cubit/details_state.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
 import 'package:our_store/views/home/logic/models/discounts_view_model.dart';
-import 'package:our_store/views/home/ui/widgets/custom_cashed_image.dart';
+import 'package:our_store/core/widgets/custom_cashed_image.dart';
 
 class DiscountDetailsView extends StatefulWidget {
   const DiscountDetailsView({super.key, required this.discountsViewModel});

@@ -1,4 +1,4 @@
-import 'package:our_store/core/models/product_view_model.dart';
+import 'package:our_store/views/products/logic/models/product_view_model.dart';
 
 class DiscountsViewModel {
   final String discountId;

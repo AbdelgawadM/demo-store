@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_store/core/cubits/product_view_cubit/product_view_cubit.dart';
-import 'package:our_store/core/cubits/product_view_cubit/product_view_states.dart';
+import 'package:our_store/views/products/logic/cubits/product_view_cubit/product_view_cubit.dart';
+import 'package:our_store/views/products/logic/cubits/product_view_cubit/product_view_states.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
 import 'package:our_store/core/widgets/product_builder.dart';
 import 'package:our_store/views/home/logic/models/category_model.dart';

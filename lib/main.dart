@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/core/cubits/details_cubit/details_cubit.dart';
-import 'package:our_store/core/cubits/favorite_cubit/favorite_cubit.dart';
-import 'package:our_store/core/cubits/product_view_cubit/product_view_cubit.dart';
+import 'package:our_store/views/favorite/logic/cubits/favorite_cubit/favorite_cubit.dart';
+import 'package:our_store/views/products/logic/cubits/product_view_cubit/product_view_cubit.dart';
+import 'package:our_store/my_bloc_observer.dart';
 import 'package:our_store/secret_constants.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/ui/sign_up_view.dart';
@@ -16,7 +17,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(url: url, anonKey: apiKey);
-  // Bloc.observer = MyBlocObserver(); // Register it here
+  Bloc.observer = MyBlocObserver(); // Register it here
 
   // await SupabaseService().fetchProducts();
   runApp(const DemoStore());
