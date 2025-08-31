@@ -7,4 +7,7 @@ class AppColors {
   static const Color kWhiteColor = Color(0xFFffffff);
   static const Color kBlackColor = Color(0xFF17162B);
   static const Color kGreyColor = Colors.grey;
+  static const Color kFloatColor = Color(0xFFE6E6E6);
+  static const Color kSecondGreyColor = Colors.black38;
+  
 }

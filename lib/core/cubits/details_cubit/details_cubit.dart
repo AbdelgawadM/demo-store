@@ -14,7 +14,10 @@ class DetailsCubit extends Cubit<DetailsState> {
     detailsCache.clear();
   }
 
-  Future<void> getProductDetails({required String productId}) async {
+  Future<void> getProductDetails({
+    required String productId,
+    required String userId,
+  }) async {
     if (detailsCache.containsKey(productId)) {
       emit(
         ProductDetailsSuccess(productDetailsModel: detailsCache[productId]!),
@@ -23,7 +26,10 @@ class DetailsCubit extends Cubit<DetailsState> {
     }
     emit(ProductDetailsLoading());
     try {
-      detailsModel = await service.fetchProductDetails(productId: productId);
+      detailsModel = await service.fetchProductDetails(
+        productId: productId,
+        userId: userId,
+      );
       detailsCache[productId] = detailsModel;
       emit(ProductDetailsSuccess(productDetailsModel: detailsModel));
     } catch (e) {
@@ -43,7 +49,9 @@ class DetailsCubit extends Cubit<DetailsState> {
     }
     emit(DiscountDetailsLoading());
     try {
-      detailsModel = await service.fetchDiscountsDetails(productId: productId);
+      detailsModel = await service.fetchDiscountsDetails(
+        productId: productId,
+      );
       detailsCache[discountId] = detailsModel;
       emit(DiscountDetailsSuccess(discountDetailsModel: detailsModel));
     } catch (e) {

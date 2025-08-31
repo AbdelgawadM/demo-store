@@ -31,7 +31,13 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }) async {
     emit(LoadingSignUp());
     try {
-      await client.auth.signUp(email: email, password: password);
+      await client.auth.signUp(
+        email: email,
+        password: password,
+        data: {
+          'name': name, // 👈 saved inside user_metadata
+        },
+      );
       await addUserData(name: name, email: email);
       emit(SuccessSignUp());
     } on AuthException catch (e) {
@@ -100,6 +106,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
       emit(SuccessUserDataAdded());
     } catch (e) {
       emit(FailureUserDataAdded(message: e.toString()));
+      throw Exception(e.toString());
     }
   }
 
@@ -116,7 +123,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
       hasFetchedUserData = true;
       print('user data');
       print(response);
-      emit(SuccessUserDataGot());
+      emit(SuccessUserDataGot(userModel: userModel!));
     } catch (e) {
       emit(FailureUserDataGot(message: e.toString()));
     }

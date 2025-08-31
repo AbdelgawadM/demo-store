@@ -10,7 +10,8 @@ class DiscountsViewCubit extends Cubit<DiscountsViewState> {
 
   bool hasFetchedProducts = false;
   Future<void> refresh() async {
-    await service.fetchDiscountsView();
+    discountsViewModel = await service.fetchDiscountsView();
+    emit(DiscountsViewSuccess(discountViewModel: discountsViewModel));
   }
 
   Future<void> getDiscountsView() async {

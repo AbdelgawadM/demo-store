@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
 
@@ -19,7 +20,7 @@ class SearchTxtField extends StatelessWidget {
       fillColor: AppColors.kWhiteColor,
       sufIcon: ElevatedButton.icon(
         onPressed: () {},
-        label: const Icon(Icons.search, color: AppColors.kWhiteColor, size: 24),
+        label: const Icon(HugeIcons.strokeRoundedSearch02, color: AppColors.kWhiteColor, size: 24),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.kPrimaryColor,
           shape: RoundedRectangleBorder(

@@ -5,8 +5,10 @@ import 'package:our_store/views/home/ui/widgets/discount_product.dart';
 import 'package:our_store/views/home/logic/models/discounts_view_model.dart';
 
 class DiscountBuilder extends StatelessWidget {
-  const DiscountBuilder({super.key, required this.discountsViewModel});
-
+  const DiscountBuilder({
+    super.key,
+    required this.discountsViewModel,
+  });
   final List<DiscountsViewModel> discountsViewModel;
 
   @override
@@ -19,7 +21,9 @@ class DiscountBuilder extends StatelessWidget {
         onTap: () {
           navigateTo(
             context,
-            DiscountDetailsView(discountsViewModel: discountsViewModel[index]),
+            DiscountDetailsView(
+              discountsViewModel: discountsViewModel[index],
+            ),
           );
         },
       ),

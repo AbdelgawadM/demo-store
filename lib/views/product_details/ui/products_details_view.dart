@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:our_store/core/cubits/details_cubit/details_cubit.dart';
 import 'package:our_store/core/cubits/details_cubit/details_state.dart';
+import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/products/logic/models/product_view_model.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_text_field.dart';
@@ -17,13 +18,21 @@ class ProductsDetailsView extends StatefulWidget {
 }
 
 class _ProductsDetailsViewState extends State<ProductsDetailsView> {
-  late DetailsCubit detailsCubit;
+  late final DetailsCubit detailsCubit;
+  late final String userId = AuthCubit()
+      .client
+      .auth
+      .currentUser!
+      .id;
 
   @override
   void initState() {
     super.initState();
     detailsCubit = context.read<DetailsCubit>()
-      ..getProductDetails(productId: widget.productViewModel.productId);
+      ..getProductDetails(
+        productId: widget.productViewModel.productId,
+        userId:userId ,
+      );
   }
 
   @override
@@ -62,21 +71,26 @@ class _ProductsDetailsViewState extends State<ProductsDetailsView> {
                               Text(widget.productViewModel.price.toString()),
                             ],
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 children: [
-                                  Text('0 '),
-                                  Icon(Icons.star, color: Colors.amberAccent),
+                                  Text(
+                                    widget.productViewModel.avgRate.toString(),
+                                  ),
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.amberAccent,
+                                  ),
                                 ],
                               ),
-                              Icon(Icons.favorite),
+                              const Icon(Icons.favorite),
                             ],
                           ),
                           Text(state.productDetailsModel.first.description),
                           RatingBar.builder(
-                            initialRating: 3,
+                            initialRating: state.productDetailsModel.first.rate,
                             minRating: 1,
                             direction: Axis.horizontal,
                             allowHalfRating: true,

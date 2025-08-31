@@ -3,14 +3,14 @@ import 'package:our_store/views/products/logic/models/product_view_model.dart';
 class DiscountsViewModel {
   final String discountId;
   final int discount;
+  final double newPrice;
   final ProductViewModel productViewModel;
-  // final double oldPrice;
 
   DiscountsViewModel({
     required this.discount,
     required this.productViewModel,
     required this.discountId,
-    // required this.oldPrice,
+    required this.newPrice,
   });
 
   factory DiscountsViewModel.fromJson(Map<String, dynamic> json) {
@@ -20,8 +20,8 @@ class DiscountsViewModel {
     return DiscountsViewModel(
       discountId: json['discount_id'],
       discount: json['discount'],
-      productViewModel: ProductViewModel.fromJson(json),
-      // oldPrice: (json['old_price'] as num).toDouble(),
+      productViewModel: ProductViewModel.fromJson(json['products']),
+      newPrice: (json['new_price'] as num).toDouble(),
     );
   }
 }

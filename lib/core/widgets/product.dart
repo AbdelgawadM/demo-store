@@ -4,7 +4,6 @@ import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/views/favorite/logic/cubits/favorite_cubit/favorite_cubit.dart';
 import 'package:our_store/core/services/supabase_service.dart';
 import 'package:our_store/views/products/logic/models/product_view_model.dart';
-import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/core/widgets/custom_cashed_image.dart';
 
@@ -20,7 +19,7 @@ class Product extends StatefulWidget {
 
 class _ProductState extends State<Product> {
   final SupabaseService service = SupabaseService();
-  late FavoriteCubit favoriteCubit = context.read<FavoriteCubit>();
+  late final FavoriteCubit favoriteCubit = context.read<FavoriteCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +61,11 @@ class _ProductState extends State<Product> {
                           favoriteCubit.toggleFavorites(
                             productViewModel: widget.productViewModel,
                             productId: widget.productViewModel.productId,
-                            userId: context
-                                .read<AuthCubit>()
-                                .client
-                                .auth
-                                .currentUser!
-                                .id,
                           );
                         },
                         icon: Icon(
                           Icons.favorite,
-                          color: favoriteCubit.isFavColor
+                          color: widget.productViewModel.isFav!
                               ? AppColors.kPrimaryColor
                               : AppColors.kGreyColor,
                         ),
@@ -92,14 +85,6 @@ class _ProductState extends State<Product> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          // Text(
-                          //   widget.productViewModel.oldPrice.toString(),
-                          //   style: const TextStyle(
-                          //     decoration: TextDecoration.lineThrough,
-                          //     fontSize: 16,
-                          //     color: AppColors.kGreyColor,
-                          //   ),
-                          // ),
                         ],
                       ),
                       Row(

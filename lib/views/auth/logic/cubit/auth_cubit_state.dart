@@ -1,3 +1,5 @@
+import 'package:our_store/views/auth/logic/models/user_model.dart';
+
 abstract class AuthCubitState {}
 
 final class AuthCubitInitial extends AuthCubitState {}
@@ -72,7 +74,11 @@ final class LoadingUserDataAdded extends AuthCubitState {}
 
 
 
-final class SuccessUserDataGot extends AuthCubitState {}
+final class SuccessUserDataGot extends AuthCubitState {
+  final UserModel userModel;
+
+  SuccessUserDataGot({required this.userModel});
+}
 final class FailureUserDataGot extends AuthCubitState {
   final String message;
 

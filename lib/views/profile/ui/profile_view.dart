@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/core/functions/custom_snackbar.dart';
 import 'package:our_store/core/functions/navigate_to.dart';
@@ -8,6 +9,7 @@ import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/logic/cubit/auth_cubit_state.dart';
 import 'package:our_store/views/auth/ui/login_view.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
+import 'package:our_store/views/main_home_view/logic/cubit/nav_bar_cubit.dart';
 import 'package:our_store/views/profile/ui/my_orders_view.dart';
 import 'package:our_store/views/profile/ui/edit_name_view.dart';
 import 'package:our_store/views/profile/ui/widgets/custom_title.dart';
@@ -35,6 +37,7 @@ class _ProfileViewState extends State<ProfileView> {
         if (state is SuccessLogout) {
           customSnackBar(context, 'Success logout');
           navigateToWithoutBack(context, LoginView());
+          context.read<NavBarCubit>().changeIndex(0);
         } else if (state is FailureLogout) {
           customSnackBar(context, state.message);
         }
@@ -54,21 +57,21 @@ class _ProfileViewState extends State<ProfileView> {
                       backgroundColor: AppColors.kPrimaryColor,
                       foregroundColor: AppColors.kWhiteColor,
                       radius: 60,
-                      child: Icon(Icons.person, size: 50),
+                      child: Icon(HugeIcons.strokeRoundedMale02, size: 50),
                     ),
                     const SizedBox(height: 15),
                     Text(
                       cubit.userModel?.name ?? 'my name',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      cubit.userModel?.email ?? 'email@gmail.com',
-                      style: const TextStyle(
-                        color: AppColors.kGreyColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    // const SizedBox(height: 10),
+                    // Text(
+                    //   cubit.userModel?.email ?? 'email@gmail.com',
+                    //   style: const TextStyle(
+                    //     color: AppColors.kGreyColor,
+                    //     fontWeight: FontWeight.w600,
+                    //   ),
+                    // ),
                     const SizedBox(height: 15),
 
                     CustomTile(
@@ -80,8 +83,8 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                     const SizedBox(height: 20),
                     CustomTile(
-                      title: 'My Orders',
-                      icon: Icons.shopping_basket,
+                      title: 'Settings',
+                      icon: HugeIcons.strokeRoundedSettings01,
                       onTap: () {
                         navigateTo(context, const MyOrdersView());
                       },

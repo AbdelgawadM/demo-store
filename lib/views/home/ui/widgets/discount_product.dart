@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/views/favorite/logic/cubits/favorite_cubit/favorite_cubit.dart';
 import 'package:our_store/core/services/supabase_service.dart';
-import 'package:our_store/views/auth/logic/cubit/auth_cubit.dart';
 import 'package:our_store/views/auth/ui/widgets/custom_card.dart';
 import 'package:our_store/views/home/logic/models/discounts_view_model.dart';
 import 'package:our_store/core/widgets/custom_cashed_image.dart';
@@ -91,17 +90,12 @@ class _DiscountproductState extends State<Discountproduct> {
                                 .discountsViewModel
                                 .productViewModel
                                 .productId,
-                            userId: context
-                                .read<AuthCubit>()
-                                .client
-                                .auth
-                                .currentUser!
-                                .id,
                           );
                         },
                         icon: Icon(
                           Icons.favorite,
-                          color: favoriteCubit.isFavColor
+                          color:
+                              widget.discountsViewModel.productViewModel.isFav!
                               ? AppColors.kPrimaryColor
                               : AppColors.kGreyColor,
                         ),
@@ -115,21 +109,21 @@ class _DiscountproductState extends State<Discountproduct> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.discountsViewModel.productViewModel.price
-                                .toString(),
+                            widget.discountsViewModel.newPrice.toString(),
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          // Text(
-                          //   widget.discountsViewModel.oldPrice.toString(),
-                          //   style: const TextStyle(
-                          //     decoration: TextDecoration.lineThrough,
-                          //     fontSize: 16,
-                          //     color: AppColors.kGreyColor,
-                          //   ),
-                          // ),
+                          Text(
+                            widget.discountsViewModel.productViewModel.price
+                                .toString(),
+                            style: const TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              fontSize: 16,
+                              color: AppColors.kGreyColor,
+                            ),
+                          ),
                         ],
                       ),
                       Row(

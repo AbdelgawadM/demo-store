@@ -9,7 +9,7 @@ class FavoriteModel {
   factory FavoriteModel.fromJson(Map<String, dynamic> json) {
     return FavoriteModel(
       favId: json['favorite_id'],
-      productViewModel: ProductViewModel.fromJson(json),
+      productViewModel: ProductViewModel.fromJson(json['products']),
     );
   }
   static Map<String, dynamic> toJson({

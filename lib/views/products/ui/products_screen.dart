@@ -7,7 +7,10 @@ import 'package:our_store/core/widgets/product_builder.dart';
 import 'package:our_store/views/home/logic/models/category_model.dart';
 
 class ProductsScreen extends StatefulWidget {
-  const ProductsScreen({super.key, required this.categoryModel});
+  const ProductsScreen({
+    super.key,
+    required this.categoryModel,
+  });
   final CategoryModel categoryModel;
 
   @override

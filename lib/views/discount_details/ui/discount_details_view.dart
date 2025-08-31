@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:our_store/core/app_colors.dart';
 import 'package:our_store/core/cubits/details_cubit/details_cubit.dart';
 import 'package:our_store/core/cubits/details_cubit/details_state.dart';
 import 'package:our_store/core/widgets/custom_indicator.dart';
@@ -17,7 +18,8 @@ class DiscountDetailsView extends StatefulWidget {
 }
 
 class _DiscountDetailsViewState extends State<DiscountDetailsView> {
-  late DetailsCubit detailsCubit;
+  late final DetailsCubit detailsCubit;
+  // late final String userId = AuthCubit().client.auth.currentUser!.id;
   @override
   void initState() {
     super.initState();
@@ -67,6 +69,14 @@ class _DiscountDetailsViewState extends State<DiscountDetailsView> {
                               Text(
                                 widget.discountsViewModel.productViewModel.price
                                     .toString(),
+                                style: const TextStyle(
+                                  decoration: TextDecoration.lineThrough,
+                                  fontSize: 16,
+                                  color: AppColors.kGreyColor,
+                                ),
+                              ),
+                              Text(
+                                widget.discountsViewModel.newPrice.toString(),
                               ),
                             ],
                           ),
@@ -93,7 +103,8 @@ class _DiscountDetailsViewState extends State<DiscountDetailsView> {
                           ),
                           Text(state.discountDetailsModel.first.description),
                           RatingBar.builder(
-                            initialRating: 3,
+                            initialRating:
+                                state.discountDetailsModel.first.rate,
                             minRating: 1,
                             direction: Axis.horizontal,
                             allowHalfRating: true,

@@ -7,6 +7,7 @@ class ProductViewCubit extends Cubit<ProductViewState> {
   ProductViewCubit() : super(ProductViewInitial());
   final SupabaseService service = SupabaseService();
   late List<ProductViewModel> productsViewModel;
+ 
 
   final Map<String, dynamic> productViewCache = {};
   Future<void> refresh() async {
