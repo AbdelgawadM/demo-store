@@ -29,14 +29,15 @@ class _HomeViewState extends State<HomeView> {
   late final BestSellerViewCubit bestSellerViewCubit = context
       .read<BestSellerViewCubit>();
   late final AuthCubit authCubit = context.read<AuthCubit>();
+  late final FavoriteCubit favoriteCubit = context.read<FavoriteCubit>();
 
   @override
   void initState() {
     super.initState();
     authCubit.getUserData();
+    favoriteCubit.getFavorites();
     categoryCubit.getCategories();
     bestSellerViewCubit.getBestSellerView();
-
   }
 
   @override

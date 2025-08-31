@@ -81,24 +81,33 @@ class _DiscountproductState extends State<Discountproduct> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          favoriteCubit.toggleFavorites(
-                            productViewModel:
-                                widget.discountsViewModel.productViewModel,
-                            productId: widget
+                      BlocBuilder<FavoriteCubit, FavoriteState>(
+                        builder: (context, state) {
+                          final isFav = favoriteCubit.isProductFav(
+                            widget
                                 .discountsViewModel
                                 .productViewModel
                                 .productId,
                           );
+                          return IconButton(
+                            onPressed: () {
+                              favoriteCubit.toggleFavorites(
+                                productId: widget
+                                    .discountsViewModel
+                                    .productViewModel
+                                    .productId,
+                                productViewModel:
+                                    widget.discountsViewModel.productViewModel,
+                              );
+                            },
+                            icon: Icon(
+                              Icons.favorite,
+                              color: isFav
+                                  ? AppColors.kPrimaryColor
+                                  : AppColors.kGreyColor,
+                            ),
+                          );
                         },
-                        icon: Icon(
-                          Icons.favorite,
-                          color:
-                              widget.discountsViewModel.productViewModel.isFav!
-                              ? AppColors.kPrimaryColor
-                              : AppColors.kGreyColor,
-                        ),
                       ),
                     ],
                   ),

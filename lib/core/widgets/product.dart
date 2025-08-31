@@ -56,19 +56,26 @@ class _ProductState extends State<Product> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          favoriteCubit.toggleFavorites(
-                            productViewModel: widget.productViewModel,
-                            productId: widget.productViewModel.productId,
+                      BlocBuilder<FavoriteCubit, FavoriteState>(
+                        builder: (context, state) {
+                          final isFav = favoriteCubit.isProductFav(
+                            widget.productViewModel.productId,
+                          );
+                          return IconButton(
+                            onPressed: () {
+                              favoriteCubit.toggleFavorites(
+                                productId: widget.productViewModel.productId,
+                                productViewModel: widget.productViewModel,
+                              );
+                            },
+                            icon: Icon(
+                              Icons.favorite,
+                              color: isFav
+                                  ? AppColors.kPrimaryColor
+                                  : AppColors.kGreyColor,
+                            ),
                           );
                         },
-                        icon: Icon(
-                          Icons.favorite,
-                          color: widget.productViewModel.isFav!
-                              ? AppColors.kPrimaryColor
-                              : AppColors.kGreyColor,
-                        ),
                       ),
                     ],
                   ),
